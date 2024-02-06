@@ -4,7 +4,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Skill {
+	private Long Id;
 
+	
+	public Long getId() {
+		return Id;
+	}
+	public void setId(Long id) {
+		Id = id;
+	}
 	public String getDescription() {
 		return description;
 	}
@@ -27,5 +35,6 @@ public String getUserName() {
 }
 public void setUserName(String userName) {
 	this.userName = userName;
-}	
+}
+	
 }

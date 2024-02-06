@@ -1,5 +1,6 @@
 package com.community.exchange.skill.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.community.exchange.skill.DAO.Profile;
 import com.community.exchange.skill.DAO.Skill;
+import com.community.exchange.skill.DAO.SkillListContainer;
 import com.community.exchange.skill.DAO.User;
 import com.community.exchange.skill.exception.UserNotFoundException;
 import com.community.exchange.skill.exception.skillNotFoundException;
@@ -27,12 +30,37 @@ public class SkillController {
 @Autowired UserService userService;
 
 @Autowired SkillService skillService;
-@PostMapping("/createProfile")
-public String createprofile(@ModelAttribute("profile") List<Skill> profile, HttpSession session) {
-	System.out.println("inside skill controller");	
-	skillService.UpdateSkill(profile, (String)session.getAttribute("userName"));
-		return "home";
+@PostMapping("/skills/add")
+public String createprofile(@ModelAttribute("skill") Skill skill, HttpSession session) {
+	//System.out.println("inside skill controller"+skillList.toString());	
+	
+	System.out.println("user name from session"+(String)session.getAttribute("userName"));
+	skillService.addSkill(skill, (String)session.getAttribute("userName"));
+		return "redirect:/myprofile";
 	}
+@GetMapping("/skills/update/{id}")
+public String showUpdateForm(@PathVariable Long id, Model model) {
+    Skill skillToUpdate = skillService.getSkillById(id);
+    model.addAttribute("skillToUpdate", skillToUpdate);
+    return "UpdateSkill";
+}
+@PostMapping("/updateSkill")
+public String updateskillData(@ModelAttribute("skill")Skill skill,HttpSession session) {
+	skillService.UpdateSkill(skill, (String)session.getAttribute("userName"));
+	return "redirect:/myprofile";
+}
+@GetMapping("/addskills")
+public String loadFromToAddSkills(HttpSession session,Model model) {
+	
+	return "createSkills";
+}
+
+@GetMapping("/skills/delete/{id}")
+public String deleteSkill(@PathVariable Long id) {
+skillService.removeSkillById(id);   
+    return "redirect:/myprofile";
+}
+
 @GetMapping("/search")
 public String search(@RequestParam("skill") String search, Model model, HttpServletRequest request) throws skillNotFoundException{
     

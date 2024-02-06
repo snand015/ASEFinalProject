@@ -1,9 +1,14 @@
 package com.community.exchange.skill.DAO;
 
+import java.beans.JavaBean;
+import java.util.List;
+
+
 import org.springframework.stereotype.Component;
 
 @Component
 public class Profile {
+	
 private String userName;
 public String getUserName() {
 	return userName;
@@ -23,22 +28,23 @@ public String getLastName() {
 public void setLastName(String lastName) {
 	this.lastName = lastName;
 }
+
 public String getAddress() {
 	return address;
 }
 public void setAddress(String address) {
 	this.address = address;
 }
-public Skill getSkillSet() {
+public List<Skill> getSkillSet() {
 	return skillSet;
 }
-public void setSkillSet(Skill skillSet) {
+public void setSkillSet(List<Skill> skillSet) {
 	this.skillSet = skillSet;
 }
 private String firstName;
 private String lastName;
 private String address;
-private Skill skillSet;
+private List<Skill> skillSet;
 private String email;
 private String msg;
 public String getEmail() {

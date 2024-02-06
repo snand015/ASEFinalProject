@@ -1,6 +1,7 @@
 package com.community.exchange.skill.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -16,9 +17,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.community.exchange.skill.DAO.Login;
 import com.community.exchange.skill.DAO.Message;
+import com.community.exchange.skill.DAO.Skill;
 import com.community.exchange.skill.DAO.User;
 import com.community.exchange.skill.exception.ApplicationException;
 import com.community.exchange.skill.exception.UserNotFoundException;
+import com.community.exchange.skill.service.SkillService;
 import com.community.exchange.skill.service.UserService;
 
 
@@ -28,6 +31,8 @@ import com.community.exchange.skill.service.UserService;
 
 public  class HomeController{
 	@Autowired UserService userService;
+	@Autowired SkillService skillService;
+	
 	
 	
 	@GetMapping("/skillapp")
@@ -62,8 +67,11 @@ public  class HomeController{
 		
 	}
 
-@GetMapping("/skill_profile")
-public String createSkillProfile() {
+@GetMapping("/myprofile")
+public String createSkillProfile(Model model,HttpSession session) {
+	List<Skill>skillList=new ArrayList();
+skillList=skillService.fetchUserSkills((String)session.getAttribute("userName"));
+	model.addAttribute("skills",skillList);
 	return "profile";
 	
 }

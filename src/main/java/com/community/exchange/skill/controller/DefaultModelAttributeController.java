@@ -47,8 +47,13 @@ public class DefaultModelAttributeController {
 	  {
 		  Skill sk= new Skill();
 		  Profile p= new Profile();
-		  p.setSkillSet(sk);
+		  List<Skill> listSk= new ArrayList();
+		  p.setSkillSet(listSk);
 		  return p;
+	  }
+	  @ModelAttribute("skill")
+	  public Skill getdefaultSkillList(){
+		  return new Skill();
 	  }
 	  @ModelAttribute("message")
 	  public  Message getDefaultmessage()

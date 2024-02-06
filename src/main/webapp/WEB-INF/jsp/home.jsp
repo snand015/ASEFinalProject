@@ -19,13 +19,13 @@
             <a class="nav-link active" href="/home">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/skill_profile">Profile</a>
+            <a class="nav-link" href="/myprofile">Profile</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/inbox">Messages</a>
+            <a class="nav-link" href="/inbox"> Inbox</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/MyRequests">Messages</a>
+            <a class="nav-link" href="/MyRequests">MyRequests</a>
         </li>
          <li class="nav-item">
             <a class="nav-link" href="/logout">logout</a>

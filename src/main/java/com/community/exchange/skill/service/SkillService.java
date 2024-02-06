@@ -26,7 +26,8 @@ public class SkillService {
 		return searchList;
 	
 	}
-	public void UpdateSkill(List<Skill> profile,String userName) {
+	public void addSkill(Skill profile,String userName) {
+		System.out.println("user name "+userName);
 		skillRepo.addSkill( profile, userName);
 			
 		
@@ -38,14 +39,23 @@ public class SkillService {
 		}
 		return skillSet;
 	}
+	public Skill getSkillById(Long id) {
+		Skill skill=null;
+		List<Skill> skillList=skillRepo.getSkillById(id);
+		if(!skillList.isEmpty()) {
+			skill=skillList.get(0); 
+		}
+		return skill;
+	}
+	public void removeSkillById(Long id) {
+		skillRepo.deleteSkillById(id);
+		
+	}
+	public void UpdateSkill(Skill skill, String userName) {
+		Skill oldSkill=skill;
+		skillRepo.modifySkillDetails(skill,userName);
+	}
+	public List<Skill> fetchUserSkills(String userName){
+		return skillRepo.getskillsByUserName(userName);
+	}
 }
-/*
- * else { for (Skill skill : searchList) { User user=null; try { user=
- * userrepo.searchUserByName(skill.getUserName()); } catch
- * (UserNotFoundException e) { // TODO Auto-generated catch block
- * e.printStackTrace(); } if (user!=null) {
- * 
- * } }
- * 
- * }
- */

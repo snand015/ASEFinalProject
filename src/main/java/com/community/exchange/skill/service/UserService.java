@@ -1,6 +1,7 @@
 package com.community.exchange.skill.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,14 @@ public class UserService {
 		user=userRepo.searchUserByName(login.getUserName());
 		if (user ==null) {
 			
-				throw new UserNotFoundException("invalid password");
+				throw new UserNotFoundException("invalid User");
 			
+		}else {
+			if(! user.getPassword().equals(login.getPassword())){
+				throw new UserNotFoundException("invalid password");
+			}
 		}
+		
 		
 		return user;
 		
@@ -42,7 +48,9 @@ public class UserService {
 		profile.setUserName(user.getUserName());
 		profile.setFirstName(user.getFirstName());
 		profile.setLastName(user.getLastName());
-		profile.setSkillSet(skill);
+		List<Skill> skillSet=new ArrayList();
+		skillSet.add(skill);
+		profile.setSkillSet(skillSet);
 		
 		return profile;
 		
