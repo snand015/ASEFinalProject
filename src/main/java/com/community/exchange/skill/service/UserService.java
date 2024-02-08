@@ -4,11 +4,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.community.exchange.skill.DAO.Login;
 import com.community.exchange.skill.DAO.Message;
+import com.community.exchange.skill.DAO.PasswordResetRequestEntity;
+import com.community.exchange.skill.DAO.PasswordResetResponseEntity;
 import com.community.exchange.skill.DAO.Profile;
 import com.community.exchange.skill.DAO.Skill;
 import com.community.exchange.skill.DAO.User;
@@ -18,6 +24,7 @@ import com.community.exchange.skill.repo.UserRepo;
 @Service
 public class UserService {
 @Autowired UserRepo userRepo;
+@Autowired JavaMailSender mailSender;
 	public User validateUser(Login login) throws UserNotFoundException {
 		User user=null;
 		user=userRepo.searchUserByName(login.getUserName());
@@ -48,9 +55,8 @@ public class UserService {
 		profile.setUserName(user.getUserName());
 		profile.setFirstName(user.getFirstName());
 		profile.setLastName(user.getLastName());
-		List<Skill> skillSet=new ArrayList();
-		skillSet.add(skill);
-		profile.setSkillSet(skillSet);
+		
+		profile.setSkillSet(skill);
 		
 		return profile;
 		
@@ -81,6 +87,45 @@ public class UserService {
 		}
 	
 		return requests;
+	}
+	 public void createPasswordResetRequest(String email, String verificationCode, LocalDateTime expiryDateTime,String userName) {
+	        PasswordResetRequestEntity request = new PasswordResetRequestEntity();
+	        request.setEmail(email);
+	        request.setVerificationCode(verificationCode);
+	        request.setExpiryDateTime(expiryDateTime);
+	        request.setUserName(userName);
+	        userRepo.saveCode(request);
+	    }
+	 public void sendPasswordResetEmail(String toEmail, String verificationCode) {
+		 SimpleMailMessage message = new SimpleMailMessage();
+	        message.setTo(toEmail);
+	        message.setSubject("password Reset request");
+	        message.setText("Hi \n please use the code below to update your password on the community platfrom.\n the code is :"+verificationCode);
+
+//mailSender.send(message);
+	    }
+	public String getUserById(String userName) throws UserNotFoundException {
+	String email=	userRepo.getUserById(userName);
+	if (email==null) {
+		throw new UserNotFoundException("Invalid UserId");
+	}return email;
+		
+	}
+	public boolean validateOTP(String verificationCode,String userName) {
+	List<PasswordResetRequestEntity> pList=null;
+			pList=userRepo.validateOTP(userName);
+			String localCode=null;
+			if(pList!=null ) {
+				localCode=pList.get(0).getVerificationCode();
+			}
+			if(localCode.equals(verificationCode)) {
+				return true;
+			}
+		return false;
+	}
+	public void updatepassword(PasswordResetRequestEntity entity) {
+		userRepo.updatePassword(entity.getUserName(),entity.getPassword());
+		
 	}
 
 	

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.community.exchange.skill.DAO.Login;
 import com.community.exchange.skill.DAO.Message;
+import com.community.exchange.skill.DAO.PasswordResetRequestEntity;
 import com.community.exchange.skill.DAO.Profile;
 import com.community.exchange.skill.DAO.Skill;
 import com.community.exchange.skill.DAO.User;
@@ -47,8 +48,8 @@ public class DefaultModelAttributeController {
 	  {
 		  Skill sk= new Skill();
 		  Profile p= new Profile();
-		  List<Skill> listSk= new ArrayList();
-		  p.setSkillSet(listSk);
+		  
+		  p.setSkillSet(sk);
 		  return p;
 	  }
 	  @ModelAttribute("skill")
@@ -64,5 +65,10 @@ public class DefaultModelAttributeController {
 	  public  Message getDefaultResponse()
 	  {
 		  return new Message();
+	  }
+	  @ModelAttribute("pass")
+	  public  PasswordResetRequestEntity getdefaultpasswordchange()
+	  {
+		  return new PasswordResetRequestEntity();
 	  }
 }

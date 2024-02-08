@@ -35,16 +35,16 @@ public String getAddress() {
 public void setAddress(String address) {
 	this.address = address;
 }
-public List<Skill> getSkillSet() {
+public Skill getSkillSet() {
 	return skillSet;
 }
-public void setSkillSet(List<Skill> skillSet) {
+public void setSkillSet(Skill skillSet) {
 	this.skillSet = skillSet;
 }
 private String firstName;
 private String lastName;
 private String address;
-private List<Skill> skillSet;
+private Skill skillSet;
 private String email;
 private String msg;
 public String getEmail() {

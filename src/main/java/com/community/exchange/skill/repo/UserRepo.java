@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.community.exchange.skill.DAO.Message;
+import com.community.exchange.skill.DAO.PasswordResetRequestEntity;
 import com.community.exchange.skill.DAO.Skill;
 import com.community.exchange.skill.DAO.User;
 import com.community.exchange.skill.exception.UserNotFoundException;
@@ -157,6 +158,43 @@ Message msg=null;
 	
 		
 			return msg;
+		
+	}
+
+
+	public void saveCode(PasswordResetRequestEntity request) {
+		String query="INSERT INTO AUTH ("
+				+ "userName ,email,verificationCode ) values (?,?,?)";
+		jdbcTemplate.update(query, request.getUserName(),request.getEmail(),request.getVerificationCode());
+				
+				
+		
+	}
+
+
+	public String getUserById(String userName) {
+		String query="SELECT  email from user where userName=?";
+	return	jdbcTemplate.queryForObject(query,String.class, userName);
+		
+	}
+
+
+	public List<PasswordResetRequestEntity> validateOTP(String userName) {
+		System.out.println("fetching otp to verify"+userName);
+		String query="select Id,verificationCode,userName,email from AUTH where userName=? order by Id desc LIMIT 1;";
+	return	jdbcTemplate.query(query,AuthRowMapper, userName);
+	}
+	 private static final RowMapper<PasswordResetRequestEntity> AuthRowMapper = (rs, rowNum) ->{
+	        PasswordResetRequestEntity msg = new PasswordResetRequestEntity();
+	        msg.setId(rs.getLong("Id"));
+	        msg.setEmail(rs.getString("email"));
+	        msg.setUserName(rs.getString("userName"));
+	        msg.setVerificationCode(rs.getString("verificationCode"));
+	     	    return msg;
+	    };
+	public void updatePassword(String userName, String newPassword) {
+		String updateQuery="update user set password=? where userName=?";
+		jdbcTemplate.update(updateQuery, new Object[] {newPassword,userName});
 		
 	}
 }

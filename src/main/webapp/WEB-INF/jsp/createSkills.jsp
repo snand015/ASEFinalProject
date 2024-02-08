@@ -5,30 +5,41 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Add skillList</title>
- 
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+<script>
+    function validateImageUpload() {
+        var input = document.getElementById('images');
+        if (input.files.length > 3) {
+            alert("You can only upload up to 3 images.");
+            return false;
+        }
+        return true;
+    }
+</script>
     <!-- Add skillList Form -->
     <h2>Add skillList</h2>
-    <form:form action="/skills/add" method="post" modelAttribute="skill">
+    <form:form action="/skills/add" method="post" enctype="multipart/form-data"   modelAttribute="skill" onsubmit="return validateImageUpload()">
         <div id="skillForm">
+            <div class="form-group">
+                <label for="skill">Skill:</label>
+                <form:input type="text" path="skill" class="form-control" required="true"/>
 
-                <div class="form-group">
-                    <label for="skill">Skill:</label>
-                    <form:input path="skill" class="form-control" required="true"/>
+                <label for="description">Description:</label>
+                <form:textarea path="description" class="form-control" required="true"></form:textarea>
+            </div>
+            
+            <!-- Input field for uploading multiple images -->
+            <div class="form-group">
+                <label for="images">Upload Images:</label>
+                <input type="file" name="images" multiple="true" accept="image/*" class="form-control-file"/>
+            </div>
 
-                    <label for="description">Description:</label>
-                    <form:textarea path="description" class="form-control" required="true"/>
-                </div>
-
-
-         
-            <form:button type="submit" value="Add skills">Add Skill</form:button>
+            <form:button type="submit" class="btn btn-primary">Add Skill</form:button>
         </div>
-        <button type="button" onclick="window.location.href='/myprofile'">Back</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='/myprofile'">Back</button>
     </form:form>
 </body>
 </html>

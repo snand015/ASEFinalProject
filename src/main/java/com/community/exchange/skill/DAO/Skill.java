@@ -1,5 +1,7 @@
 package com.community.exchange.skill.DAO;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -35,6 +37,16 @@ public String getUserName() {
 }
 public void setUserName(String userName) {
 	this.userName = userName;
+}
+private List<String> imagePaths;
+
+
+public List<String> getImagePaths() {
+    return imagePaths;
+}
+
+public void setImagePaths(List<String> imagePaths) {
+    this.imagePaths = imagePaths;
 }
 	
 }

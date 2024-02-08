@@ -28,6 +28,7 @@ public class SkillService {
 	}
 	public void addSkill(Skill profile,String userName) {
 		System.out.println("user name "+userName);
+		
 		skillRepo.addSkill( profile, userName);
 			
 		
@@ -53,9 +54,16 @@ public class SkillService {
 	}
 	public void UpdateSkill(Skill skill, String userName) {
 		Skill oldSkill=skill;
-		skillRepo.modifySkillDetails(skill,userName);
+	
+			skillRepo.modifySkillDetails(skill,userName);
+		
+		
 	}
 	public List<Skill> fetchUserSkills(String userName){
 		return skillRepo.getskillsByUserName(userName);
+	}
+	public boolean deleteImageByUrl(String imageUrl) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

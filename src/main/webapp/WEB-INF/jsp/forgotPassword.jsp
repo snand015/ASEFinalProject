@@ -9,10 +9,11 @@
 <body>
     <h2>Forgot Password</h2>
     <form:form action="/send-otp-and-reset" method="post">
-        <label for="email">Registered Email:</label>
-        <form:input type="email" id="email" name="email" required/>
+          <span class="failure">${failure}</span>
+        <label for="email">Enter UserID:</label>
+        <input type="text" id="email" name="userName" required />
 
-        <form:button type="submit">Send OTP</form:button>
+        <button type="submit">Send OTP</button>
     </form:form>
 
     <div>
