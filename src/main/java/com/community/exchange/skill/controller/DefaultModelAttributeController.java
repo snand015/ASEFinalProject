@@ -52,7 +52,7 @@ public class DefaultModelAttributeController {
 		  p.setSkillSet(sk);
 		  return p;
 	  }
-	  @ModelAttribute("skill")
+	  @ModelAttribute("skill")	  
 	  public Skill getdefaultSkillList(){
 		  return new Skill();
 	  }

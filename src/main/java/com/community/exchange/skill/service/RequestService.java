@@ -28,4 +28,14 @@ public class RequestService {
 		userRepo.updatemessageStatus(id,status);	
 	}
 
+	public String getRequestDetails(Long id) {
+		String receiverName=null;
+	Message msg=	userRepo.getRequestById(id);
+	if(msg!=null) {
+		
+	}
+receiverName=	msg.getSenderUserName();
+	return receiverName;	
+	}
+
 }

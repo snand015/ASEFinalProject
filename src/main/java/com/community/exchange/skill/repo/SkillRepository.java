@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.community.exchange.skill.DAO.Skill;
+import com.community.exchange.skill.exception.PendingDependenciesException;
 
 
 
@@ -106,10 +107,15 @@ System.out.println("resultSkills"+skillList.size());
 		}
 		return skillSet;
 	}
-	public void deleteSkillById(Long id) {
+	public void deleteSkillById(Long id) throws PendingDependenciesException {
 		// TODO Auto-generated method stub
 		String deletequery="delete from skills where id=?";
-		jdbcTemplate.update(deletequery,id);		
+		try {
+			jdbcTemplate.update(deletequery,id);	
+		}catch(Exception e) {
+			throw new PendingDependenciesException("Can not delete as there are pending messages on this skill");
+		}
+			
 	}
 	public List<Skill> getSkillById(Long id) {
 		String query="select skillId,userName,Id,skillDesc, imagePath1, imagePath2,imagePath3 from skills where Id=?";
@@ -144,5 +150,10 @@ System.out.println("resultSkills"+skillList.size());
 		List<Skill>skillList=null;
 	skillList=	jdbcTemplate.query(query, skillRowmapper,userName);
 	return skillList;
+	}
+	public void flagPost(Skill skill) {
+		String query="update skills set complaint=? ,flagPost='Y' where id=?";
+		jdbcTemplate.update(query, new Object[] {skill.getComplaint(),skill.getId()});
+		
 	}
 }

@@ -21,7 +21,7 @@
     <!-- Add additional information as needed -->
 
     <!-- Example: Displaying reply form -->
-    <form:form action="/talent-requests/${talentRequest.id}/respond" method="post" modelAttribute="response">
+    <form:form action="${talentRequest.id}/respond" method="post" modelAttribute="response">
       
        
         <label for="response">Your Reply:</label>
@@ -32,6 +32,6 @@
         <form:button type="submit">Send Reply</form:button>
     </form:form>
 </c:if>
-<button type="button" onclick="window.location.href='/home'">gotoHome</button>
+<button type="button" onclick="window.location.href='/skillapp/home'">gotoHome</button>
 </body>
 </html>

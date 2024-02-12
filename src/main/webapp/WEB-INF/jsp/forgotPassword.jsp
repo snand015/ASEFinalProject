@@ -8,7 +8,12 @@
 </head>
 <body>
     <h2>Forgot Password</h2>
-    <form:form action="/send-otp-and-reset" method="post">
+    <div id="confirmationblock">
+<span class="form-control"> ${failure} </span>
+
+
+</div>
+    <form:form action="send-otp-and-reset" method="post">
           <span class="failure">${failure}</span>
         <label for="email">Enter UserID:</label>
         <input type="text" id="email" name="userName" required />

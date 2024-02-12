@@ -2,6 +2,8 @@ package com.community.exchange.skill.DAO;
 
 import java.util.List;
 
+import javax.validation.constraints.Size;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -48,5 +50,23 @@ public List<String> getImagePaths() {
 public void setImagePaths(List<String> imagePaths) {
     this.imagePaths = imagePaths;
 }
-	
+private boolean irrelaventFlg;
+
+
+public boolean getIrrelaventFlg() {
+	return irrelaventFlg;
+}
+public void setIrrelaventFlg(boolean irrelaventFlg) {
+	this.irrelaventFlg = irrelaventFlg;
+}
+@Size(max=100, message="Maximum description is upto 100 characters")
+private String complaint;
+
+
+public String getComplaint() {
+	return complaint;
+}
+public void setComplaint(String complaint) {
+	this.complaint = complaint;
+}	
 }

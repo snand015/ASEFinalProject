@@ -21,7 +21,7 @@
 </script>
     <!-- Add skillList Form -->
     <h2>Add skillList</h2>
-    <form:form action="/skills/add" method="post" enctype="multipart/form-data"   modelAttribute="skill" onsubmit="return validateImageUpload()">
+    <form:form action="skills/add" method="post" enctype="multipart/form-data"   modelAttribute="skill" onsubmit="return validateImageUpload()">
         <div id="skillForm">
             <div class="form-group">
                 <label for="skill">Skill:</label>
@@ -39,7 +39,7 @@
 
             <form:button type="submit" class="btn btn-primary">Add Skill</form:button>
         </div>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='/myprofile'">Back</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='myprofile'">Back</button>
     </form:form>
 </body>
 </html>

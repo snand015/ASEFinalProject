@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.community.exchange.skill.DAO.Login;
 import com.community.exchange.skill.DAO.Message;
@@ -28,69 +29,70 @@ import com.community.exchange.skill.service.UserService;
 
 @Controller
 @SessionAttributes("login")
-
+@RequestMapping("/skillapp")
 public  class HomeController{
 	@Autowired UserService userService;
 	@Autowired SkillService skillService;
 	
 	
 	
-	@GetMapping("/skillapp")
+	@GetMapping("")
 	public String gotoHome() {
 		System.out.println("inside controller");
 		return "index";
 	}
 	
 	
-	@PostMapping ("/login")
-	public String gotoLogin( @ModelAttribute("login") Login login, HttpSession session ) throws  UserNotFoundException{
+	@PostMapping ("login")
+	public String gotoLogin( @ModelAttribute("login") Login login, HttpSession session,Model model ) throws  UserNotFoundException{
 		System.out.println("inside login home"+login.getUserName());
 	
 		User user=userService.validateUser(login);
 		
 		System.out.println("landing on home");
 		session.setAttribute("userName",login.getUserName() );
+		model.addAttribute("userName",login.getUserName());
         	return "home";
         
 
 		
 	}
-	@GetMapping ("/home")
+	@GetMapping ("home")
 	public String gotoHome(  HttpSession session,Model model ) throws  UserNotFoundException{
 		
 		
 		System.out.println("landing on home");
 		session.setAttribute("userName",(String)session.getAttribute("userName") );
+		model.addAttribute("userName",(String)session.getAttribute("userName"));
         	return "home";
         
 
 		
 	}
 
-@GetMapping("/myprofile")
+@GetMapping("myprofile")
 public String createSkillProfile(Model model,HttpSession session) {
 	List<Skill>skillList=new ArrayList();
+	
+	
 skillList=skillService.fetchUserSkills((String)session.getAttribute("userName"));
 	model.addAttribute("skills",skillList);
 	return "profile";
 	
 }
-    @GetMapping("/logout")
+    @GetMapping("logout")
     public String logout(HttpSession session){
         System.out.println("Ending user session");
         session.removeAttribute("userName" );
+        
         session.invalidate();
         //System.out.println(session.getAttribute("login"));
       
 
-        return "index";
+        return "redirect:/skillapp";
 
     }
 
-	@GetMapping ("/register")
-	public String gotoRegistration() {
-		System.out.println("inside registration of home");
-		return "createAccount";
-	}
+	
 	
 }

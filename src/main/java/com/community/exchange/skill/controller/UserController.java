@@ -13,12 +13,16 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.community.exchange.skill.DAO.Message;
 import com.community.exchange.skill.DAO.PasswordResetRequestEntity;
@@ -36,20 +40,29 @@ import com.community.exchange.skill.service.UserService;
 
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 	
 	@Autowired UserService userService;
 	@Autowired RegistractionService registrationService;
 	@Autowired RequestService requestService;
-	@PostMapping("/addUser")
+	
+	@GetMapping ("register")
+	public String gotoRegistration() {
+		System.out.println("inside registration of home");
+		return "createAccount";
+	}
+	
+	
+	@PostMapping("addUser")
 	public String addUser(
-		@Valid @ModelAttribute("user") User user,  BindingResult result, Model model ) throws RegistractionException {
+		@Valid @ModelAttribute("user") User user,  BindingResult result, ModelMap model ) throws RegistractionException {
 			
 			System.out.println("inside registration controller");
 
 			        if(result.hasErrors()){
 			        	System.out.println(result);
-			            return "createAccount";
+			            return  "createAccount";
 			        }
 
 			        
@@ -63,12 +76,12 @@ public class UserController {
 					model.addAttribute("dataSaved", "Registration successful");
 					return "index";
 				}
-	@GetMapping("/forgot-password")
+	@GetMapping("forgot-password")
 	public String forgotPassword(Model model) {
 		
 		return "forgotPassword";
 	}
-	 @PostMapping("/send-otp-and-reset")
+	 @PostMapping("send-otp-and-reset")
 	    public String forgotPassword(@RequestParam("userName") String userName,Model model) {
 	        // Generate verification code
 		 System.out.println("userName in opt method"+userName);
@@ -98,7 +111,8 @@ public class UserController {
 	 
 	 
 	 @PostMapping("validate-otp-and-reset")
-	 public String validateAndResetPassword(@ModelAttribute ("pass") PasswordResetRequestEntity entity,@RequestParam("userName") String userName,Model model) {
+	 public String validateAndResetPassword(@ModelAttribute ("pass") PasswordResetRequestEntity entity,
+			 @RequestParam("userName") String userName,ModelMap model) {
 boolean flag=	false;
 System.out.println("inside validate otp controller "+userName);
 flag=userService.validateOTP(entity.getVerificationCode(),userName);

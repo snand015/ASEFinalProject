@@ -1,5 +1,8 @@
 package com.community.exchange.skill.service;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.community.exchange.skill.DAO.Skill;
 import com.community.exchange.skill.DAO.User;
+import com.community.exchange.skill.exception.PendingDependenciesException;
 import com.community.exchange.skill.exception.UserNotFoundException;
 import com.community.exchange.skill.exception.skillNotFoundException;
 import com.community.exchange.skill.repo.SkillRepository;
@@ -48,7 +52,7 @@ public class SkillService {
 		}
 		return skill;
 	}
-	public void removeSkillById(Long id) {
+	public void removeSkillById(Long id) throws PendingDependenciesException {
 		skillRepo.deleteSkillById(id);
 		
 	}
@@ -63,7 +67,31 @@ public class SkillService {
 		return skillRepo.getskillsByUserName(userName);
 	}
 	public boolean deleteImageByUrl(String imageUrl) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+            // Construct the file path
+            String filePath = "src/main/resources/static/images/" + imageUrl;
+
+            // Create a Path object
+            Path path = Paths.get(filePath);
+
+            // Check if the file exists
+            if (Files.exists(path)) {
+                // Attempt to delete the file
+                Files.delete(path);
+           
+                return true;
+            } else {
+               
+                return false;
+            }
+        } catch (Exception e) {
+            // Exception occurred during file deletion
+          e.printStackTrace();
+            return false;
+        }
+	
+	}
+	public void sendComplaintAndFlagSkill(Skill skill) {
+	skillRepo.flagPost(skill);		
 	}
 }

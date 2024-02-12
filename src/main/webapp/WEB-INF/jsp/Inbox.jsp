@@ -31,8 +31,8 @@
                     <td>${shortDesc}</td>
                     <td>${talentRequest.skillName}</td>
                     <td>
-                        <a href="<c:url value='/talent-requests/${talentRequest.id}'/>">View</a>
-                        <form action="<c:url value='/talent-requests/${talentRequest.id}/delete'/>" method="post" style="display: inline;">
+                        <a href="<c:url value='talent-requests/${talentRequest.id}'/>">View</a>
+                        <form action="<c:url value='talent-requests/${talentRequest.id}/delete'/>" method="post" style="display: inline;">
                             <button type="submit">Delete</button>
                         </form>
                     </td>
@@ -45,6 +45,6 @@
 <c:if test="${empty talentRequests}">
     <p>No talent requests in the inbox.</p>
 </c:if>
-<button type="button" onclick="window.location.href='/home'">Back</button>
+<button type="button" onclick="window.location.href='home'">Back</button>
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.community.exchange.skill.exception;
  
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -13,32 +14,57 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value
                       = RegistractionException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity
-    handleException(RegistractionException ex)
+    public String handleException(RegistractionException ex,Model model)
     {
-        return new ResponseEntity(
-             ex.getMessage(),HttpStatus.BAD_REQUEST);
+    	model.addAttribute("message",ex.getMessage());
+    	model.addAttribute("status",HttpStatus.BAD_REQUEST);
+       return "error";
     }
     
 
     @ExceptionHandler(value
                       = skillNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity
-    handleException(skillNotFoundException ex)
+    public String
+    handleException(skillNotFoundException ex,Model model)
     {
-        return new ResponseEntity(
-             ex.getMessage(),HttpStatus.BAD_REQUEST);
+    	model.addAttribute("message",ex.getMessage());
+    	model.addAttribute("status",HttpStatus.BAD_REQUEST);
+       return "error";
+
     }
     
 
     @ExceptionHandler(value
                       = UserNotFoundException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ResponseEntity
-    handleException(UserNotFoundException ex)
+    public  String
+    handleException(UserNotFoundException ex,Model model)
     {
-        return new ResponseEntity(
-             ex.getMessage(),HttpStatus.BAD_REQUEST);
+    	model.addAttribute("message",ex.getMessage());
+    	model.addAttribute("status",HttpStatus.BAD_REQUEST);
+       return "error";
+
+    }
+    @ExceptionHandler(value
+            = UserNotFoundException.class)
+    
+@ResponseStatus(HttpStatus.BAD_GATEWAY)
+public  String
+handleException(ApplicationException ex,Model model)
+{
+model.addAttribute("message",ex.getMessage());
+model.addAttribute("status",HttpStatus.BAD_REQUEST);
+return "error";
+
+}
+    @ResponseStatus(HttpStatus.FAILED_DEPENDENCY)
+    public  String
+    handleException(PendingDependenciesException ex,Model model)
+    {
+    model.addAttribute("message",ex.getMessage());
+    model.addAttribute("status",HttpStatus.BAD_REQUEST);
+    return "error";
+
     }
 }

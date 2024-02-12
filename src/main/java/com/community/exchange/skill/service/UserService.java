@@ -78,7 +78,7 @@ public class UserService {
 	public List<Message> getMessagesForUser(String receiverUserName,String type) {
 		List<Message> requests=null;
 		if(type.equalsIgnoreCase("sent")) {
-			System.out.println("inside sent");
+			System.out.println("inside sent"+receiverUserName);
 			requests=userRepo.getAllRequests(receiverUserName);
 			System.out.println("requests.size"+requests.size());
 			

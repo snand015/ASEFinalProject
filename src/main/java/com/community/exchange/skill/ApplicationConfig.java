@@ -1,5 +1,8 @@
 package com.community.exchange.skill;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,10 +17,11 @@ public class ApplicationConfig extends WebMvcConfigurationSupport {
 
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+    	
         registry.addResourceHandler("css/**", "images/**")
-                .addResourceLocations("classpath:/static/css/", "classpath:/static/images/");
+                .addResourceLocations("classpath:/static/css/", "classpath:/static/images/","/uploaded_images");
     }
-
+  
     @Bean
     public InternalResourceViewResolver jspViewResolver(){
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -27,4 +31,5 @@ public class ApplicationConfig extends WebMvcConfigurationSupport {
         viewResolver.setViewClass(JstlView.class);
         return viewResolver;
     }
+    
 }

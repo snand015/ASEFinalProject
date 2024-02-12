@@ -28,14 +28,14 @@
             <td>${skill.skill}</td>
             <td>${skill.description}</td>
             <td>
-                <a href="<c:url value='/skills/update/${skill.id}'/>">Update</a>
-                <a href="<c:url value='/skills/delete/${skill.id}'/>">Delete</a>
+                <a href="<c:url value='skills/update/${skill.id}'/>">Update</a>
+                <a href="<c:url value='skills/delete/${skill.id}'/>">Delete</a>
             </td>
         </tr>
     </c:forEach>
 </table>
-<button type="button" onclick="window.location.href='/addskills'">add More Skills</button>
+<button type="button" onclick="window.location.href='addskills'">add More Skills</button>
 
-<button type="button" onclick="window.location.href='/home'">Back</button>
+<button type="button" onclick="window.location.href='home'">Back</button>
 </body>
 </html>

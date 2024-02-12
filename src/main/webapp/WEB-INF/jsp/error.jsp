@@ -23,31 +23,19 @@
       <div class="col-md-6">
         <div class="card login-container">
           <div class="card-header">
-            <h3 class="text-center">Login</h3>
+            <h3 class="text-center">Error</h3>
           </div>
           <div class="card-body">
-          <span class="success">${dataSaved}</span>
-          <span class=""> ${passwordSuccess} </span>
-            <form:form action="skillapp/login" method="post" modelAttribute="login">
-              <div class="form-group">
-                <label for="email">User Name</label>
-                <form:input type="text" class="form-control" path="userName" placeholder="Enter email"/>
-              </div>
-              <div class="form-group">
-                <label for="password">Password</label>
-                <form:input type="password" class="form-control" path="password" placeholder="Password"/>
-              </div>
-              <form:button type="submit" class="btn btn-primary btn-block">Login</form:button>
-            </form:form>
-            <div class="nav-link">
-        <a href="user/forgot-password">Forgot Password?</a> |
-        <a href="user/register">New User? Register</a>
+      <span>You are logedout due to unexpected exception.Please find the details ${message} </span>
+            
+        <a href="/skillapp">Back to Login?</a> |
+       
     </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+
 
   <!-- Bootstrap JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
