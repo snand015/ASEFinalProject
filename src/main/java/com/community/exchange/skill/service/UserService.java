@@ -19,6 +19,7 @@ import com.community.exchange.skill.DAO.Profile;
 import com.community.exchange.skill.DAO.Skill;
 import com.community.exchange.skill.DAO.User;
 import com.community.exchange.skill.exception.UserNotFoundException;
+import com.community.exchange.skill.exception.UserUpdateException;
 import com.community.exchange.skill.repo.UserRepo;
 
 @Service
@@ -55,8 +56,9 @@ public class UserService {
 		profile.setUserName(user.getUserName());
 		profile.setFirstName(user.getFirstName());
 		profile.setLastName(user.getLastName());
-		
-		profile.setSkillSet(skill);
+		List<Skill> skillSet= new ArrayList();
+		skillSet.add(skill);
+		profile.setSkillSet(skillSet);
 		
 		return profile;
 		
@@ -126,6 +128,21 @@ public class UserService {
 	public void updatepassword(PasswordResetRequestEntity entity) {
 		userRepo.updatePassword(entity.getUserName(),entity.getPassword());
 		
+	}
+	public List<User> getUserDetails(User user) {
+	
+	List<User> userList=null;
+	userList=userRepo.getUser(user);
+	
+		return userList;
+		
+	}
+	public User getUserDetailsById(String userName) throws UserNotFoundException {
+return	userRepo.searchUserByName(userName);
+	}
+	public void updateUser(User user) throws UserUpdateException {
+		// TODO Auto-generated method stub
+		userRepo.updateUser(user);
 	}
 
 	

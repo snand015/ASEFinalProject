@@ -10,7 +10,13 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-  <div class="container mt-4">
+ <div class="container mt-5">
+<div class="container my-5 py-5">
+    <div class="justify-content-center">
+      <div class=" col-md-30 col-lg-30 col-xl-30 ">
+        <div class="card">
+          <div class="card-body">
+            <div class=" align-items-center">
     <h2>Registration Form</h2>
    <form:form action="addUser" method="post" modelAttribute="user">
       <div class="form-group">
@@ -41,6 +47,7 @@
       <form:button type="submit" class="btn btn-primary">addUser</form:button>
     </form:form>
   </div>
+  </div></div></div></div></div></div>
 
   <!-- Bootstrap JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

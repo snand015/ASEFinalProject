@@ -45,6 +45,13 @@ public class Message {
     private String content;
     private LocalDateTime timestamp;
     private String SkillName;
+    public Long getSkillId() {
+		return skillId;
+	}
+	public void setSkillId(Long skillId) {
+		this.skillId = skillId;
+	}
+	private Long skillId;
 	public String getSkillName() {
 		return SkillName;
 	}

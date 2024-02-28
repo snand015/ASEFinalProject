@@ -46,7 +46,7 @@ public class DefaultModelAttributeController {
 	  @ModelAttribute("profile")
 	  public  Profile getDefaultProfile()
 	  {
-		  Skill sk= new Skill();
+		 List< Skill> sk= new ArrayList();
 		  Profile p= new Profile();
 		  
 		  p.setSkillSet(sk);

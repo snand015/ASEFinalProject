@@ -19,6 +19,7 @@ import com.community.exchange.skill.DAO.PasswordResetRequestEntity;
 import com.community.exchange.skill.DAO.Skill;
 import com.community.exchange.skill.DAO.User;
 import com.community.exchange.skill.exception.UserNotFoundException;
+import com.community.exchange.skill.exception.UserUpdateException;
 
 @Repository
 public class UserRepo {
@@ -32,13 +33,14 @@ public class UserRepo {
 				+ "lastName,"
 				+ "email,"
 				
-				+ "address)"
-				+ "VALUES    (?,?,?,?,?,?)";
+				+ "address,"
+				+ "role) "
+				+ "VALUES    (?,?,?,?,?,?,?)";
 				
 		
 		jdbcTemplate.update(query, user.getUserName(),user.getPassword(),
 				user.getFirstName(),user.getLastName(),
-				user.getEmail(),user.getAddress());
+				user.getEmail(),user.getAddress(),user.getRole());
 		
 		
 	}
@@ -195,6 +197,31 @@ Message msg=null;
 	public void updatePassword(String userName, String newPassword) {
 		String updateQuery="update user set password=? where userName=?";
 		jdbcTemplate.update(updateQuery, new Object[] {newPassword,userName});
+		
+	}
+
+
+	public List<User> getUser(User user) {
+		// TODO Auto-generated method stub
+		String query= "SELECT firstName,lastName ,userName,email,password,address  "
+				+ "FROM user "
+				+ "WHERE LOWER(userName) LIKE LOWER(CONCAT('%', ? ,'%')) OR LOWER(email) LIKE LOWER(CONCAT('%', ? ,'%')) OR LOWER(firstName) LIKE LOWER(CONCAT('%', ? ,'%'))"
+				+ "OR LOWER(lastName) LIKE LOWER(CONCAT('%', ? ,'%'))";	
+	
+return 	jdbcTemplate.query(query, userRowmapper, new Object[]{user.getUserName(),user.getEmail(),user.getFirstName(),user.getLastName()});
+	
+	}
+
+
+	public void updateUser(User user) throws UserUpdateException {
+		
+		String query="update user set firstName=? , lastName=? , email=? , password=? , address=? , role=? where userName=?";
+		try {
+		jdbcTemplate.update(query, new Object[] {user.getFirstName(),user.getLastName(),user.getEmail(),
+				user.getPassword(),user.getAddress(), user.getRole(),user.getUserName()});
+		}catch(Exception e) {
+			throw new UserUpdateException(e.getMessage());
+		}
 		
 	}
 }

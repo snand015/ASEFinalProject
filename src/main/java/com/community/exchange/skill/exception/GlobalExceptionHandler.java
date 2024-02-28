@@ -23,44 +23,39 @@ public class GlobalExceptionHandler {
     
 
     @ExceptionHandler(value
-                      = skillNotFoundException.class)
+                      = SkillNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String
-    handleException(skillNotFoundException ex,Model model)
+    handleException(SkillNotFoundException ex,Model model)
+    {
+    	model.addAttribute("message",ex.getMessage());
+    	model.addAttribute("status",HttpStatus.NOT_FOUND);
+       return "error";
+
+    }
+    
+
+    @ExceptionHandler(value = UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_GATEWAY)
+    public  String handleException(UserNotFoundException ex,Model model)
     {
     	model.addAttribute("message",ex.getMessage());
     	model.addAttribute("status",HttpStatus.BAD_REQUEST);
        return "error";
 
     }
-    
-
-    @ExceptionHandler(value
-                      = UserNotFoundException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public  String
-    handleException(UserNotFoundException ex,Model model)
+    @ExceptionHandler(value = UserUpdateException.class)
+    @ResponseStatus(HttpStatus.BAD_GATEWAY)
+    public  String handleException(UserUpdateException ex,Model model)
     {
     	model.addAttribute("message",ex.getMessage());
     	model.addAttribute("status",HttpStatus.BAD_REQUEST);
        return "error";
 
     }
-    @ExceptionHandler(value
-            = UserNotFoundException.class)
-    
-@ResponseStatus(HttpStatus.BAD_GATEWAY)
-public  String
-handleException(ApplicationException ex,Model model)
-{
-model.addAttribute("message",ex.getMessage());
-model.addAttribute("status",HttpStatus.BAD_REQUEST);
-return "error";
-
-}
+ 
     @ResponseStatus(HttpStatus.FAILED_DEPENDENCY)
-    public  String
-    handleException(PendingDependenciesException ex,Model model)
+    public  String handleException(PendingDependenciesException ex,Model model)
     {
     model.addAttribute("message",ex.getMessage());
     model.addAttribute("status",HttpStatus.BAD_REQUEST);

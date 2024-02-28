@@ -30,6 +30,7 @@ import com.community.exchange.skill.DAO.Profile;
 import com.community.exchange.skill.DAO.User;
 import com.community.exchange.skill.exception.RegistractionException;
 import com.community.exchange.skill.exception.UserNotFoundException;
+import com.community.exchange.skill.exception.UserUpdateException;
 import com.community.exchange.skill.service.RegistractionService;
 import com.community.exchange.skill.service.RequestService;
 import com.community.exchange.skill.service.SkillService;
@@ -141,6 +142,7 @@ flag=userService.validateOTP(entity.getVerificationCode(),userName);
 	        return code;
 	    }	
 
+	
 }
 
 

@@ -59,9 +59,9 @@ public class User {
 					+ "and one special character and should be between 8 and 20 characters")
 	private String password;
 	private Skill[] skill;
-	@NotNull(message="first name can not be empty")
+	@NotEmpty(message="first name can not be empty")
 	private String firstName;
-	@NotNull(message="first name can not be empty")
+	@NotEmpty(message="first name can not be empty")
 	private String lastName;
 	private String currentResident;
 	private String address;
@@ -82,4 +82,11 @@ public class User {
 		this.email = email;
 	}
 	
+	private String role="normal";
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 }

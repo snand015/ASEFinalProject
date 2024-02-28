@@ -9,19 +9,30 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-
+<div class="container mt-5">
+<div class="container my-5 py-5">
+    <div class="justify-content-center">
+      <div class=" col-md-30 col-lg-30 col-xl-30 ">
+        <div class="card">
+          <div class="card-body">
+            <div class=" align-items-center">
 <h2>Update Skill</h2>
 
 <form:form action="/skillapp/updateSkill" method="post" modelAttribute="skill" enctype="multipart/form-data" >
-    <label for="skill">Skill:</label> <form:input type="text" path="skill" value="${skillToUpdate.skill}" readonly="true" />
-    <label for="skill">Skill:</label><form:input type="text" path="description" value="${skillToUpdate.description}" required="true" />
-      
+<div class="form-group">
+    <label class="form-label" for="skill">Skill:</label> 
+    <form:input class="form-control" type="text" path="skill" value="${skillToUpdate.skill}" readonly="true" />
+    </div>
+    <div class="form-group">
+    <label class="form-lable" for="skill">Skill:</label>
+    <form:input class="form-control rounded-corner" type="textArea" path="description" value="${skillToUpdate.description}" required="true" />
+      </div>
         <c:forEach var="image" items="${skillToUpdate.imagePaths}">
          <c:if test="${image!=null}">
         <div id="imagefield">
 
         <img src="/${image}" width="100" height="100" />
-        <button type="button" onclick="removeImage('${image}')">Remove</button>
+        <button class="btn btn-primary f-s-12 rounded-corner" type="button" onclick="removeImage('${image}')">Remove</button>
         </div>
         </c:if>
     </c:forEach>
@@ -30,9 +41,10 @@
     <!-- Input field for adding new images -->
     <input type="file" id="newImages" name="newImages" accept="image/*" multiple />
       
-      <form:button type="submit" value="update skills">Update Skill</form:button>
+      <form:button  class="btn btn-primary f-s-12 rounded-corner" type="submit" value="update skills">Update Skill</form:button>
 </form:form>
-  <button type="button" onclick="window.location.href='myprofile'">Back</button>
+  <button type="button" class="btn btn-primary f-s-12 rounded-corner" onclick="window.location.href='/skillapp/myprofile'">Back</button>
+  </div></div></div></div></div></div></div>
   <script>
     function removeImage(imageUrl) {
         // Remove the image from the UI

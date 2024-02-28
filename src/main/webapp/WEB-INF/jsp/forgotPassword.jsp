@@ -7,6 +7,13 @@
     <title>Forgot Password</title>
 </head>
 <body>
+<div class="container mt-5">
+<div class="container my-5 py-5">
+    <div class="justify-content-center">
+      <div class=" col-md-30 col-lg-30 col-xl-30 ">
+        <div class="card">
+          <div class="card-body">
+            <div class=" align-items-center">
     <h2>Forgot Password</h2>
     <div id="confirmationblock">
 <span class="form-control"> ${failure} </span>
@@ -22,7 +29,8 @@
     </form:form>
 
     <div>
-        <a href="/login">Back to Login</a>
+        <a href="/skillapp" class="btn btn-primary" >Back to Login</a>
     </div>
+    </div></div></div></div></div></div></div>
 </body>
 </html>

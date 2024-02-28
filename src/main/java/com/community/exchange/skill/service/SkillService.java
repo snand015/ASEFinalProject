@@ -12,7 +12,7 @@ import com.community.exchange.skill.DAO.Skill;
 import com.community.exchange.skill.DAO.User;
 import com.community.exchange.skill.exception.PendingDependenciesException;
 import com.community.exchange.skill.exception.UserNotFoundException;
-import com.community.exchange.skill.exception.skillNotFoundException;
+import com.community.exchange.skill.exception.SkillNotFoundException;
 import com.community.exchange.skill.repo.SkillRepository;
 import com.community.exchange.skill.repo.UserRepo;
 
@@ -21,11 +21,11 @@ public class SkillService {
 	@Autowired SkillRepository skillRepo;
 	@Autowired UserRepo userrepo;
 
-	public List<Skill> findByNameContainingIgnoreCase(String search) throws skillNotFoundException {
+	public List<Skill> findByNameContainingIgnoreCase(String search) throws SkillNotFoundException {
 		System.out.println("calling repository");
 		List<Skill> searchList=skillRepo.findByNameContainingIgnoreCase(search);
 		if(searchList==null || searchList.isEmpty()) {
-			throw new skillNotFoundException("No Talents related are found, Sorry for the inconvineance");
+			throw new SkillNotFoundException("No Talents related are found, Sorry for the inconvineance");
 		}
 		return searchList;
 	
@@ -37,10 +37,10 @@ public class SkillService {
 			
 		
 	}
-	public Skill getSkillById(String skill, String userName) throws skillNotFoundException {
+	public Skill getSkillById(String skill, String userName) throws SkillNotFoundException {
 		Skill skillSet=skillRepo.findskillSet(skill,userName);
 		if(skillSet==null) {
-			throw new skillNotFoundException("No Talents related are found, Sorry for the inconvineance");
+			throw new SkillNotFoundException("No Talents related are found, Sorry for the inconvineance");
 		}
 		return skillSet;
 	}
@@ -93,5 +93,9 @@ public class SkillService {
 	}
 	public void sendComplaintAndFlagSkill(Skill skill) {
 	skillRepo.flagPost(skill);		
+	}
+	public List<Skill> getFlaggedPosts() throws SkillNotFoundException {
+		// TODO Auto-generated method stub
+	return	skillRepo.getFlaggedPosts();
 	}
 }

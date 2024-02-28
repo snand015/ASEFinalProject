@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.community.exchange.skill.DAO.Skill;
 import com.community.exchange.skill.exception.PendingDependenciesException;
+import com.community.exchange.skill.exception.SkillNotFoundException;
 
 
 
@@ -87,6 +88,7 @@ System.out.println("resultSkills"+skillList.size());
         skill.setUserName(rs.getString("userName"));
         skill.setDescription(rs.getString("skillDesc"));
         skill.setId(rs.getLong("Id"));
+        skill.setComplaint(rs.getString("complaint"));
         List<String>imagePaths= new ArrayList();
         String imagePath1=rs.getString("imagePath1");
         String imagePath2=rs.getString("imagePath2");
@@ -99,7 +101,7 @@ System.out.println("resultSkills"+skillList.size());
     };
 	public Skill findskillSet(String skill, String userName) {
 		Skill skillSet=null;
-		String query ="Select skillId, userName,skillDesc,Id,imagePath1,imagePath2,imagePath3 from skills "+
+		String query ="Select skillId, userName,skillDesc,Id,imagePath1,imagePath2,imagePath3,complaint from skills "+
 		"  where skillId=? and userName= ?";
 		List<Skill> skillList= jdbcTemplate.query(query,skillRowmapperDetails,new Object[] {skill,userName});
 		if (skillList !=null || !(skillList.isEmpty())) {
@@ -118,7 +120,7 @@ System.out.println("resultSkills"+skillList.size());
 			
 	}
 	public List<Skill> getSkillById(Long id) {
-		String query="select skillId,userName,Id,skillDesc, imagePath1, imagePath2,imagePath3 from skills where Id=?";
+		String query="select skillId,userName,Id,skillDesc, imagePath1, imagePath2,imagePath3,complaint from skills where Id=?";
 		return jdbcTemplate.query(query,skillRowmapperDetails,id);
 		
 	}
@@ -155,5 +157,19 @@ System.out.println("resultSkills"+skillList.size());
 		String query="update skills set complaint=? ,flagPost='Y' where id=?";
 		jdbcTemplate.update(query, new Object[] {skill.getComplaint(),skill.getId()});
 		
+	}
+	public List<Skill> getFlaggedPosts() throws SkillNotFoundException {
+		String query="select skillId, userName, Id, skillDesc,imagePath1,"
+				+ " imagePath2,imagePath3,complaint from skills where flagpost='Y'";
+		
+	List<Skill> flaggedPosts=null;
+	try{
+		flaggedPosts=jdbcTemplate.query(query, skillRowmapperDetails);
+	}catch(Exception e){
+		e.printStackTrace();
+		throw new SkillNotFoundException(e.getMessage());
+		
+	}
+	return flaggedPosts;
 	}
 }

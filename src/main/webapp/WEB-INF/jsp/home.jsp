@@ -8,15 +8,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skill Search</title>
     <!-- Add Bootstrap CSS link here -->
-     <link rel="stylesheet" href="css/style.css" type="text/css"/>
+     <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
 <div class="container mt-5">
-  <div class="form-group">
-        <span class="form-control">Welcome ${userName}</span>
+<div class="container my-5 py-5">
+    <div class="justify-content-center">
+      <div class=" col-md-30 col-lg-30 col-xl-30 ">
+        <div class="card">
+          <div class="card-body">
+            <div class=" align-items-center">
+ 
+        <span class="skill-label">Welcome ${userName}</span>
     
-      </div>
+
     <!-- Navigation Tabs -->
     <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -37,9 +43,21 @@
         <!-- Add more tabs as needed -->
     </ul>
 <div id="confirmationblock">
-<span class="form-control"> ${complaint} </span>
-<span class="form-control"> ${requestSuccess} </span>
-
+<c:if test="${not empty complaint}">
+    <div class="alert alert-success" role="alert">
+        ${complaint}
+    </div>
+</c:if>
+<c:if test="${not empty requestSuccess}">
+    <div class="alert alert-success" role="alert">
+        ${requestSuccess}
+    </div>
+</c:if>
+<c:if test="${not empty searchfailed}">
+    <div class="alert alert-warning" role="alert">
+        ${searchfailed}
+    </div>
+</c:if>
 </div>
     <!-- Skill Search Form -->
     <div class="mt-3">
@@ -47,25 +65,27 @@
         <form action="search" method="get" class="form-inline">
             <div class="form-group">
                 <label for="skillInput" class="mr-2">Enter Skill:</label>
-                <input type="text" class="form-control" name="skill" path="skill" />
+                <form:input type="text" class="form-control" name="skill" path="skill" />
             </div>
              <input name="userName"  type="hidden"  value="${userName}"/>
             <button type="submit" class="btn btn-primary ml-2">Search</button>
         </form >
            </div>
-</div>
-         <ul>
+
+         <ul style= "list-style:none" >
+         <c:if test="${not empty resultSkills }">
         <c:forEach var="skill" items="${resultSkills}">
               <div class="tile" onclick="window.location.href='/skillapp/skillDetails?skill=${skill.skill}&user=${skill.userName}'">
+             <div class="skill-content col-md-20 col-lg-20 col-xl-20 ">
             <li>${skill.skill}</li>
              <li>${skill.description}</li>
              </div>
+             </div>
         </c:forEach>
+        </c:if>
     </ul>
-   
- 
-
-
-
+  
+ </div>
+</div></div></div></div></div></div>
 </body>
 </html>

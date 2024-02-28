@@ -30,9 +30,9 @@ import com.community.exchange.skill.DAO.SkillListContainer;
 import com.community.exchange.skill.DAO.User;
 import com.community.exchange.skill.exception.PendingDependenciesException;
 import com.community.exchange.skill.exception.UserNotFoundException;
-import com.community.exchange.skill.exception.skillNotFoundException;
 import com.community.exchange.skill.service.SkillService;
 import com.community.exchange.skill.service.UserService;
+import com.community.exchange.skill.exception.SkillNotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -41,66 +41,25 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/skillapp")
 public class SkillController {
-@Autowired UserService userService;
-
-@Autowired SkillService skillService;
+	@Autowired
+	public UserService userService;
+	@Autowired
+	public SkillService skillService;
+	@Autowired SkillControllerData data;
 @PostMapping("/skills/add")
 public String createprofile(@ModelAttribute("skill") Skill skill, @RequestParam("images") MultipartFile[] images, HttpSession session) {
 	//System.out.println("inside skill controller"+skillList.toString());	
 	String userName=(String)session.getAttribute("userName");
 	System.out.println("user name from session"+(String)session.getAttribute("userName"));
 	 if (images != null && images.length > 0) {
-		   List<String> imagePaths = addImagesToSkill(skill, images, userName);
+		   List<String> imagePaths = data.addImagesToSkill(skill, images, userName);
             skill.setImagePaths(imagePaths);
             }
 	        
-	skillService.addSkill(skill, (String)session.getAttribute("userName"));
+skillService.addSkill(skill, (String)session.getAttribute("userName"));
 		return "redirect:/skillapp/myprofile";
 	}
-private List<String> addImagesToSkill(Skill skill, MultipartFile[] images, String userName) {
-	List<String> imagePaths=new ArrayList();
-	    // Loop through each uploaded image file
-	    for (MultipartFile image : images) {
-	        // Check if the image file is not empty
-	        if (!image.isEmpty()) {
-	            try {
-	                // Get the bytes of the image file
-	            	  String fileName =  image.getOriginalFilename();
-	                  
-	                  // Define the directory path to save the image
-	                  String directoryPath = "src/main/resources/static/images/" + userName + "/" + skill.getSkill();
-	                  
-	                  // Create the directory if it doesn't exist
-	                  File directory = new File(directoryPath);
-	                  if (!directory.exists()) {
-	                      directory.mkdirs();
-	                  }
-	                 
-	                  // Construct the path where the image will be saved
-	                  Path filePath = Paths.get(directoryPath, fileName);
-	                  
-	                  // Save the image bytes to the file
-	                  Files.write(filePath, image.getBytes());
-	                  
-	                  // Set the image path in the skill object
-	                  String imagePath = "images/" + userName + "/" + skill.getSkill() + "/" + fileName;
-	                  // Assuming you have a setter method for the image path in the Skill class
-	                  if(skill.getImagePaths()==null||!(skill.getImagePaths().contains(imagePath))) {
-	                	  imagePaths.add(imagePath);  
-	                  }
-	                 
 
-	                
-	                
-	                
-	            } catch (IOException e) {
-	                // Handle the exception appropriately
-	                e.printStackTrace();
-	            }
-	        }
-	        }
-	return imagePaths;
-}
 @GetMapping("/skills/update/{id}")
 public String showUpdateForm(@PathVariable Long id, Model model) {
     Skill skillToUpdate = skillService.getSkillById(id);
@@ -114,7 +73,7 @@ public String updateskillData(@ModelAttribute("skill")Skill skill,@RequestParam(
 
 	if (images != null && images.length > 0) {
 		
-		   List<String> imagePaths = addImagesToSkill(skill, images, userName);
+		   List<String> imagePaths = data.addImagesToSkill(skill, images, userName);
          skill.setImagePaths(imagePaths);
          }
 	        
@@ -135,7 +94,7 @@ public ResponseEntity<String> deleteImage(@RequestParam("imageUrl") String image
     }
 }
 @GetMapping("/addskills")
-public String loadFromToAddSkills(HttpSession session,Model model) {
+public String loadFromToAddSkills(HttpSession session,Model model,@RequestParam("userName")String userName) {
 	
 	return "createSkills";
 }
@@ -144,45 +103,31 @@ public String loadFromToAddSkills(HttpSession session,Model model) {
 public String deleteSkill(@PathVariable Long id) throws PendingDependenciesException{
 	 Skill skillToDelete = skillService.getSkillById(id);
 skillService.removeSkillById(id);  
-deleteSkillImages(skillToDelete);
+data.deleteSkillImages(skillToDelete);
     return "redirect:/skillapp/myprofile";
 }
-private void deleteSkillImages(Skill skill) {
-    List<String> imagePaths = skill.getImagePaths();
-    if (imagePaths != null) {
-        for (String imagePath : imagePaths) {
-            try {
-                // Construct the file path of the image
-                String filePath = "src/main/resources/static" + imagePath;
-                
-                // Create a file object
-                File file = new File(filePath);
-                
-                // Check if the file exists and delete it
-                if (file.exists()) {
-                    file.delete();
-                    System.out.println("File deleted successfully: " + filePath);
-                }
-            } catch (Exception e) {
-                // Handle any exceptions that occur during file deletion
-                e.printStackTrace();
-            }
-        }
-    }
-}
+
 @GetMapping("/search")
-public String search(@RequestParam("skill") String search, Model model, HttpServletRequest request) throws skillNotFoundException{
+public String search(@RequestParam("skill") String search, Model model, HttpServletRequest request) {
     
     System.out.println("in search controller");
     System.out.println("search criteria: "+search);
-    List<Skill> resultSkills = skillService.findByNameContainingIgnoreCase(search);
+    List<Skill> resultSkills=null;
+    try {
+   resultSkills = skillService.findByNameContainingIgnoreCase(search);
+    }catch( Exception e) {
+    	e.printStackTrace();
+    	model.addAttribute("searchfailed","Sorry! No skill related to the search criteria is available. Thank you for using the platfrom try new skill.");
+    }
+    if(resultSkills!=null) {
     System.out.println(resultSkills.size());
+    }
     model.addAttribute("resultSkills", resultSkills);
 return "home";
 
 }
 @GetMapping("/skillDetails")
-public String getSkillDetails(@RequestParam("skill") String  skill,@RequestParam("user") String  userName, Model model) throws skillNotFoundException {
+public String getSkillDetails(@RequestParam("skill") String  skill,@RequestParam("user") String  userName, Model model) throws SkillNotFoundException {
 
 	System.out.println("user name is "+userName);
 	 Skill skillSet = skillService.getSkillById(skill,userName);
