@@ -10,11 +10,13 @@
  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<div class="container">
+  <img src="/images/icon.jpeg" alt="Icon" class="icon">
 <div class="container mt-5">
 <div class="container my-5 py-5">
     <div class="justify-content-center">
       <div class=" col-md-30 col-lg-30 col-xl-30 ">
-        <div class="card">
+        <div class="card-local">
           <div class="card-body">
             <div class=" align-items-center">
 <c:if test="${not empty talentRequest}">
@@ -42,7 +44,7 @@
                                  <div class="input">
                                     
                                        <div class="input-group">
-                                          <form:textarea path="content" id="response" rows="10" cols="50" class="form-control rounded-corner" placeholder="Write a Reply..."></form:textarea>
+                                          <form:textarea path="content" id="response" rows="10" cols="50" class="form-control textarea" placeholder="Write a Reply..."></form:textarea>
 
                                          
                                         
@@ -61,7 +63,7 @@
      </div>
 </c:if>
 <button type="button" class="btn btn-primary f-s-12 rounded-corner" onclick="window.location.href='/skillapp/home'">gotoHome</button>
-</div></div></div></div></div></div></div>
+</div></div></div></div></div></div></div></div>
 <script>
     function validateForm() {
         var status = document.querySelector('input[name="status"]:checked');

@@ -6,14 +6,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Update Skill</title>
+         <link rel="stylesheet" href="/css/style.css" type="text/css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+<div class="container">
+  <img src="/images/icon.jpeg" alt="Icon" class="icon">
 <div class="container mt-5">
 <div class="container my-5 py-5">
     <div class="justify-content-center">
       <div class=" col-md-30 col-lg-30 col-xl-30 ">
-        <div class="card">
+        <div class="card-local">
           <div class="card-body">
             <div class=" align-items-center">
 <h2>Update Skill</h2>
@@ -21,17 +24,17 @@
 <form:form action="/skillapp/updateSkill" method="post" modelAttribute="skill" enctype="multipart/form-data" >
 <div class="form-group">
     <label class="form-label" for="skill">Skill:</label> 
-    <form:input class="form-control" type="text" path="skill" value="${skillToUpdate.skill}" readonly="true" />
+    <form:input class="form-control-local" type="text" path="skill" value="${skillToUpdate.skill}" readonly="true" />
     </div>
     <div class="form-group">
     <label class="form-lable" for="skill">Skill:</label>
-    <form:input class="form-control rounded-corner" type="textArea" path="description" value="${skillToUpdate.description}" required="true" />
+    <form:input class="form-control textarea" type="textArea" path="description" value="${skillToUpdate.description}" required="true" />
       </div>
         <c:forEach var="image" items="${skillToUpdate.imagePaths}">
          <c:if test="${image!=null}">
         <div id="imagefield">
 
-        <img src="/${image}" width="100" height="100" />
+        <img src="/${image}" class="img" />
         <button class="btn btn-primary f-s-12 rounded-corner" type="button" onclick="removeImage('${image}')">Remove</button>
         </div>
         </c:if>
@@ -44,7 +47,7 @@
       <form:button  class="btn btn-primary f-s-12 rounded-corner" type="submit" value="update skills">Update Skill</form:button>
 </form:form>
   <button type="button" class="btn btn-primary f-s-12 rounded-corner" onclick="window.location.href='/skillapp/myprofile'">Back</button>
-  </div></div></div></div></div></div></div>
+  </div></div></div></div></div></div></div></div>
   <script>
     function removeImage(imageUrl) {
         // Remove the image from the UI

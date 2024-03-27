@@ -7,14 +7,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Update User</title>
+      <link rel="stylesheet" href="/css/style.css" type="text/css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+<div class="container">
+  <img src="/images/icon.jpeg" alt="Icon" class="icon">
 <div class="container mt-5">
 <div class="container my-5 py-5">
     <div class="justify-content-center">
       <div class=" col-md-30 col-lg-30 col-xl-30 ">
-        <div class="card">
+        <div class="card-local">
           <div class="card-body">
             <div class=" align-items-center">
 <h2>Update User</h2>
@@ -22,26 +25,26 @@
 <form:form action="update-user" method="post"  modelAttribute="user">
      <div class="form-group">
     <label>First Name:</label>
-    <form:input type="text" class="form-control"   path="firstName" value="${user.firstName}" /><br>
+    <form:input type="text" class="from-control-local"    path="firstName" value="${user.firstName}" /><br>
     </div>
      <div class="form-group">
     <label>Last Name:</label>
-    <form:input type="text" class="form-control" path="lastName" value="${user.lastName}"/><br>
+    <form:input type="text" class="from-control-local"  path="lastName" value="${user.lastName}"/><br>
     </div>
      <div class="form-group">
     <label>Email:</label>
-    <form:input type="email" class="form-control"  path="email" value="${user.email}"/><br>
+    <form:input type="email" class="from-control-local"   path="email" value="${user.email}"/><br>
     </div>
      <div class="form-group">
     <label>Address:</label>
-    <form:input type="text"  class="form-control" path="address" value="${user.address}"/><br>
+    <form:input type="text"  class="from-control-local"  path="address" value="${user.address}"/><br>
     </div>
      <div class="form-group">
      <label>password:</label>
-    <form:input type="password"  class="form-control" path="password" value="${user.password}"/><br>
+    <form:input type="password"  class="from-control-local"  path="password" value="${user.password}"/><br>
     </div>
     <!-- Add hidden field for user ID -->
-    <form:input type="hidden"  class="form-control"  path="userName" value="${user.userName}"/>
+    <form:input type="hidden"  class="from-control-local"   path="userName" value="${user.userName}"/>
     
    <c:if test="${sessionScope.role == 'admin'}">
      <div class="form-group">
@@ -62,6 +65,6 @@
 </c:if>
 </div>
 </form:form>
-</div></div></div></div></div></div></div>
+</div></div></div></div></div></div></div></div>
 </body>
 </html>

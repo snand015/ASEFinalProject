@@ -12,12 +12,13 @@
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<div class="container">
+  <img src="/images/icon.jpeg" alt="Icon" class="icon">
 <div class="container mt-5">
 <div class="container my-5 py-5">
     <div class="justify-content-center">
       <div class=" col-md-30 col-lg-30 col-xl-30 ">
-        <div class="card">
-          <div class="card-body">
+        
             <div class=" align-items-center">
  
         <span class="skill-label">Welcome ${userName}</span>
@@ -65,7 +66,7 @@
         <form action="search" method="get" class="form-inline">
             <div class="form-group">
                 <label for="skillInput" class="mr-2">Enter Skill:</label>
-                <form:input type="text" class="form-control" name="skill" path="skill" />
+                <form:input type="text" class="form-control-local"  name="skill" path="skill" />
             </div>
              <input name="userName"  type="hidden"  value="${userName}"/>
             <button type="submit" class="btn btn-primary ml-2">Search</button>
@@ -86,6 +87,6 @@
     </ul>
   
  </div>
-</div></div></div></div></div></div>
+</div></div></div></div></div>
 </body>
 </html>

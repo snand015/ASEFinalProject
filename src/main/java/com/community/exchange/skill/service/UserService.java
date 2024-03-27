@@ -144,6 +144,11 @@ return	userRepo.searchUserByName(userName);
 		// TODO Auto-generated method stub
 		userRepo.updateUser(user);
 	}
+	public Boolean removeUser(String userName) {
+		// TODO Auto-generated method stub
+	Boolean	success=userRepo.deleteUser(userName);
+	return success;
+	}
 
 	
 }

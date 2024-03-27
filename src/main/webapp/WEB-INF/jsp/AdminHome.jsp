@@ -8,11 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Home</title>
     <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="/css/style.css" type="text/css"/>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
    
     
 </head>
 <body>
+<div class="container">
+  <img src="/images/icon.jpeg" alt="Icon" class="icon">
     <div class="container mt-5">
         <h2 class="text-center mb-4">Admin Home</h2>
         <!-- Nav tabs -->
@@ -45,7 +48,7 @@
                  <form action="search" method="get" class="form-inline">
             <div class="form-group">
                 <label for="skillInput" class="mr-2">Enter Skill:</label>
-                <input type="text" class="form-control" name="skill" path="skill" />
+                <input type="text" class="form-control-local" name="skill" path="skill" />
             </div>
              <input name="userName"  type="hidden"  value="${userName}"/>
             <button type="submit" class="btn btn-primary ml-2">Search</button>
@@ -65,28 +68,28 @@
             <form:form action="addUser" method="post" modelAttribute="user">
       <div class="form-group">
         <label for="firstName">First Name *</label>
-        <form:input type="text" class="form-control" path="firstName" placeholder="Enter first name" /><form:errors path="firstName" cssClass="error"/><br/>
+        <form:input type="text" class="form-control-local" path="firstName" placeholder="Enter first name" /><form:errors path="firstName" cssClass="error"/><br/>
       </div>
       <div class="form-group">
         <label for="lastName">Last Name</label>
-        <form:input type="text" class="form-control" path="lastName" placeholder="Enter last name"/><form:errors path="lastName" cssClass="error"/><br/>
+        <form:input type="text" class="form-control-local" path="lastName" placeholder="Enter last name"/><form:errors path="lastName" cssClass="error"/><br/>
       </div>
       <div class="form-group">
         <label for="email">Email address *</label>
-        <form:input type="email" class="form-control" path="email" placeholder="Enter email" />
+        <form:input type="email" class="form-control-local" path="email" placeholder="Enter email" />
         <form:errors path="email" cssClass="error"/></br>
       </div>
             <div class="form-group">
         <label for="firstName">userId *</label>
-      <form:input path="userName" class="form-control" type="text" /><form:errors path="userName" cssClass="error"/><br/>
+      <form:input path="userName" class="form-control-local" type="text" /><form:errors path="userName" cssClass="error"/><br/>
       </div>
        <div class="form-group">
         <label for="firstName">password *</label>
-      <form:input path="password" type="password" class="form-control" /><form:errors path="password" cssClass="error"/><br/>
+      <form:input path="password" type="password" class="form-control-local" /><form:errors path="password" cssClass="error"/><br/>
       </div>
       <div class="form-group">
         <label for="address">Address</label>
-        <form:textarea class="form-control" path="address" rows="3" placeholder="Enter address"></form:textarea>
+        <form:textarea class=" form-control textarea" path="address" rows="3" placeholder="Enter address"></form:textarea>
       </div>
       <div class="form-group">
         <label for="role">Make user Admin</label>
@@ -101,19 +104,19 @@
                 <form:form action="getUser" method="get" modelAttribute="user">
            <div class="form-group">
             <label for="user Name">user Name</label>  
-              <form:input type="text" class="form-control" path="userName" placeHolder="enter user Name"/>
+              <form:input type="text" class="form-control-local" path="userName" placeHolder="enter user Name"/>
               </div>
               <div class="form-group">
                <label for="firstName"> first Name</label>  
-                <form:input type="text"  class="form-control" path="firstName"/>
+                <form:input type="text"  class="form-control-local" path="firstName"/>
                 </div>
                 <div class="form-group">
                  <label for="lastName">last Name</label>  
-                <form:input type="text" class="form-control" path="lastName"/>
+                <form:input type="text" class="form-control-local" path="lastName"/>
                 </div>
                 <div class="form-group">
                  <label for="email">emailId</label>  
-                <form:input type="text" class="form-control" path="email"/>
+                <form:input type="text" class="form-control-local" path="email"/>
                 </div>
                  <form:button type="submit" class="btn btn-primary">find User</form:button>
                 </form:form>
@@ -126,7 +129,7 @@
             </div>
         </div>
     </div>
-    
+   </div> 
 <script>
     $(document).ready(function() {
         // Get the tab from the query parameter

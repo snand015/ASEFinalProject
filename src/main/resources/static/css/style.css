@@ -10,12 +10,30 @@
     
     
 }
-.body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        padding: 0;
-        background-color: #eee;
-    }
+.a{
+	    color: aqua;
+    text-decoration: none;
+    background-color: transparent;
+}
+.card-local {
+   position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+       background-clip: border-box;
+    border: 1px solid rgba(1,1,1,.25);
+    border-radius: 0.25rem;
+}
+.nav-link{
+color: black;
+    display: block;
+    padding: 0.5rem 1rem;
+    background-color: lightsteelblue;	
+}
+
 .skill-content {
     padding: 5px;
 }
@@ -31,18 +49,25 @@
         margin: 5px 0;
     }
    .img {
-        margin: 5px;
+            margin: 5px;
+    border-radius: 20px;
+    width: 200px;
+    height: 200px;
+    
+    object-fit: cover;
     }
     .form {
         margin-top: 20px;
     }
-    .label {
+    label {
         font-weight: bold;
     }
     .textarea {
         width: 100%;
         padding: 5px;
         margin-top: 5px;
+        border-radius: 20px;
+        
     }
     .button {
         margin-top: 10px;
@@ -179,7 +204,7 @@
 
  .timeline-body {
     
-    background: #fff;
+   /* background: #fff;*/
     position: relative;
     padding: 20px 25px;
     border-radius: 6px
@@ -237,7 +262,7 @@
 }
 
 .timeline-footer {
-    background: #fff;
+  /*  background: #fff;*/
     border-top: 1px solid #e2e7ec;
     padding-top: 15px
 }
@@ -264,9 +289,9 @@
 .timeline-comment-box .user+.input {
     margin-left: 44px
 }
-.form-control {
+.form-control-local {
     display: block;
-    width: 70%;
+    width: 55%;
     height: calc(1.5em + 0.75rem + 2px);
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
@@ -279,4 +304,67 @@
     border-radius: 5px;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+
+body {
+   font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-image: url('/images/background.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    height: 100%;
+    /*backdrop-filter: blur(8px);*/
+}
+   .
+   body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.6); /* White background with 60% opacity */
+        }
+  
+.icon{
+	position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 10px;
+  width:100px;
+  height:100px
+}
+ .login-container {
+      margin-top: 100px;
+    }
               
+              .password-meter {
+    display: flex;
+    height: 5px;
+    margin-top: 10px;
+}
+
+.meter-section {
+    flex: 1;
+    background-color: #ddd;
+}
+
+.weak {
+    background-color: #ff4d4d;
+}
+
+.medium {
+    background-color: #ffd633;
+}
+
+.strong {
+    background-color: #00b300;
+}
+
+.very-strong {
+    background-color: #009900;
+}
+.error {
+	color:#ff4d4d;
+}

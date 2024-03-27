@@ -9,21 +9,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Page</title>
   <!-- Bootstrap CSS -->
+       <link rel="stylesheet" href="/css/style.css" type="text/css"/>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <style>
-    body {
-      background-color: #f8f9fa;
-    }
-    .login-container {
-      margin-top: 100px;
-    }
-  </style>
+ 
 </head>
 <body>
-  <div class="container">
+
+ <div class="container">
+  <img src="/images/icon.jpeg" alt="Icon" class="icon">
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <div class="card login-container">
+        <div class="card-local login-container">
         <span class=""> ${errorMessage} </span>
           <div class="card-header">
             <ul class="nav nav-tabs">
@@ -43,11 +39,11 @@
             <form:form action="skillapp/login" method="post" modelAttribute="login">
               <div class="form-group">
                 <label for="email">User Name</label>
-                <form:input type="text" class="form-control" path="userName" placeholder="Enter email"/>
+                <form:input type="text" class="form-control"  path="userName" placeholder="Enter email"/>
               </div>
               <div class="form-group">
                 <label for="password">Password</label>
-                <form:input type="password" class="form-control" path="password" placeholder="Password"/>
+                <form:input type="password" class="form-control"  path="password" placeholder="Password"/>
               </div>
               <form:button type="submit" class="btn btn-primary btn-block">Login</form:button>
             </form:form>
@@ -61,11 +57,11 @@
                 <form:form action="skillapp/admin/login" method="post" modelAttribute="login">
                   <div class="form-group">
                 <label for="email">User Name</label>
-                <form:input type="text" class="form-control" path="userName" placeholder="Enter email"/>
+                <form:input type="text" class="form-control"  path="userName" placeholder="Enter email"/>
               </div>
               <div class="form-group">
                 <label for="password">Password</label>
-                <form:input type="password" class="form-control" path="password" placeholder="Password"/>
+                <form:input type="password" class="form-control"  path="password" placeholder="Password"/>
               </div>
               <input type="hidden" name="role" value="admin">
               <form:button type="submit" class="btn btn-primary btn-block">Login</form:button>

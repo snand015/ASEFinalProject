@@ -11,12 +11,14 @@
  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<div class="container">
+  <img src="/images/icon.jpeg" alt="Icon" class="icon">
 <div class="container mt-5">
 <div class="container my-5 py-5">
     <div class="justify-content-center">
       <div class=" col-md-30 col-lg-30 col-xl-30 ">
-        <div class="card">
-          <div class="card-body">
+       <!--  <div class="card">
+          <div class="card-body"> -->
             <div class=" align-items-center">
     <h1>User List</h1>
     <ul  >
@@ -47,6 +49,7 @@
     <button type="button"  class="btn btn-primary" onclick="window.location.href='AdminHome'">Back</button>
 
 
-    </div></div></div></div></div></div></div>
+    </div></div></div></div></div></div>
+    <!-- </div></div> -->
 </body>
 </html>

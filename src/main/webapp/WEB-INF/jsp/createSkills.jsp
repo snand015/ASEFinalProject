@@ -6,7 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Add skillList</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <script>
@@ -19,11 +20,13 @@
         return true;
     }
 </script>
+<div class="container">
+  <img src="/images/icon.jpeg" alt="Icon" class="icon">
 <div class="container mt-5">
 <div class="container my-5 py-5">
     <div class="justify-content-center">
       <div class=" col-md-30 col-lg-30 col-xl-30 ">
-        <div class="card">
+        <div class="card-local">
           <div class="card-body">
             <div class=" align-items-center">
     <!-- Add skillList Form -->
@@ -32,11 +35,11 @@
         <div id="skillForm">
             <div class="form-group">
                 <label class="form-label" for="skill">Skill:</label>
-                <form:input type="text" path="skill" class="form-control" required="true"/>
+                <form:input type="text" path="skill" class="form-control-local" required="true"/>
 </div>
 <div class="form-outline col-md-12 col-lg-10 col-xl-8">
                 <label for="description">Description:</label>
-                <form:textarea path="description" class="form-control" required="true"></form:textarea>
+                <form:textarea path="description" class="form-control textarea" required="true"></form:textarea>
             </div>
             
             <!-- Input field for uploading multiple images -->
@@ -49,6 +52,6 @@
         </div>
         <button type="button" class="btn btn-primary" onclick="window.location.href='myprofile'">Back</button>
     </form:form>
-    </div></div></div></div></div></div></div>
+    </div></div></div></div></div></div></div></div>
 </body>
 </html>

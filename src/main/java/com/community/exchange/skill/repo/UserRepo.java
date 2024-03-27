@@ -204,9 +204,13 @@ Message msg=null;
 	public List<User> getUser(User user) {
 		// TODO Auto-generated method stub
 		String query= "SELECT firstName,lastName ,userName,email,password,address  "
-				+ "FROM user "
-				+ "WHERE LOWER(userName) LIKE LOWER(CONCAT('%', ? ,'%')) OR LOWER(email) LIKE LOWER(CONCAT('%', ? ,'%')) OR LOWER(firstName) LIKE LOWER(CONCAT('%', ? ,'%'))"
-				+ "OR LOWER(lastName) LIKE LOWER(CONCAT('%', ? ,'%'))";	
+				+ "FROM user  where "
+				+" LOWER(userName) LIKE LOWER(CONCAT('%', ?, '%')) "
+				 +" OR LOWER(firstName) LIKE LOWER(CONCAT('%', ?, '%')) "
+				
++ "OR LOWER(lastName) LIKE LOWER(CONCAT('%', ?, '%')) "
+			+"OR LOWER(email) LIKE LOWER(CONCAT('%', ?, '%')) ";
+				
 	
 return 	jdbcTemplate.query(query, userRowmapper, new Object[]{user.getUserName(),user.getEmail(),user.getFirstName(),user.getLastName()});
 	
@@ -223,5 +227,18 @@ return 	jdbcTemplate.query(query, userRowmapper, new Object[]{user.getUserName()
 			throw new UserUpdateException(e.getMessage());
 		}
 		
+	}
+
+
+	public Boolean deleteUser(String userName) {
+		// TODO Auto-generated method stub
+		String query=" delete from user where userName=?";
+		try {
+		jdbcTemplate.update(query, userName);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }

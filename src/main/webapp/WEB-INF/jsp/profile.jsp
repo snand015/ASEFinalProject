@@ -7,14 +7,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Skills Management</title>
+     <link rel="stylesheet" href="/css/style.css" type="text/css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+<div class="container">
+  <img src="/images/icon.jpeg" alt="Icon" class="icon">
 <div class="container mt-5">
 <div class="container my-5 py-5">
     <div class="justify-content-center">
       <div class=" col-md-30 col-lg-30 col-xl-30 ">
-        <div class="card">
+        <div class="card-local">
           <div class="card-body">
             <div class=" align-items-center">
 <h2>Profile</h2>
@@ -43,7 +46,14 @@ ${ErrorMessage}</div>
         <span class="skill-value"> ${profile.address}</span>
     </div>
    
+<button class="btn btn-primary" type="button"onclick="window.location.href='update-user?userName=${profile.userName}'">updateProfile</button>
+<button class="btn btn-primary" type="button" onclick="window.location.href='addskills?userName=${profile.userName}'">Add More Skills</button>
+<c:if test="${sessionScope.role!=null || sessionScope.role=='admin'}">
+<form action="<c:url value='deleteUser?userName=${profile.userName}'/>" method="post" style="display: inline;">
+                            <button  class="btn btn-primary" type="submit">Delete User</button>
+                        </form>
 
+</c:if>
 <!-- Display Skills -->
 <h3>Skills:</h3>
 <table class="table table-striped">
@@ -70,8 +80,7 @@ ${ErrorMessage}</div>
     </tbody>
 </table>
 
-<button class="btn btn-primary" type="button"onclick="window.location.href='update-user?userName=${profile.userName}'">updateProfile</button>
-<button class="btn btn-primary" type="button" onclick="window.location.href='addskills?userName=${profile.userName}'">Add More Skills</button>
+
 <c:if test="${sessionScope.role==null || sessionScope.role!='admin'}">
 <button type="button" class="btn btn-primary" onclick="window.location.href='home'">Back</button>
 </c:if>
@@ -79,6 +88,6 @@ ${ErrorMessage}</div>
     <button type="button"  class="btn btn-primary" onclick="window.location.href='AdminHome'">Back to AdminHome</button>
 
 </c:if>
-</div></div></div></div></div></div></div>
+</div></div></div></div></div></div></div></div>
 </body>
 </html>

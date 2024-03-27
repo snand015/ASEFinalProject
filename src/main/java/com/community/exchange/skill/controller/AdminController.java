@@ -125,8 +125,14 @@ public class AdminController {
 			return "AdminHome";
 	}
 	@PostMapping("deleteUser")
-	public String removeUser() {
-		return "adminHome";
+	public String removeUser(@RequestParam("userName")String userName, Model model) {
+		Boolean success=userService.removeUser(userName);
+		String message=" User Removed sucessfully";
+		if(!success) {
+			message="unable to remove user check with support Team!";
+		}
+		model.addAttribute("dataSaved", message);
+		return "AdminHome";
 	}
 	@GetMapping("getUser")
 	public String findUser(@ModelAttribute("user") User user, Model model) {

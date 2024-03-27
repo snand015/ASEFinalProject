@@ -13,11 +13,13 @@
 
 </head>
 <body>
+<div class="container">
+  <img src="/images/icon.jpeg" alt="Icon" class="icon">
 <div class="container mt-5">
 <div class="container my-5 py-5">
     <div class="justify-content-center">
       <div class=" col-md-30 col-lg-30 col-xl-30 ">
-        <div class="card">
+        <div class="card-local">
           <div class="card-body">
             <div class=" align-items-center">
     <h2>Skill Details</h2>
@@ -41,7 +43,7 @@
    <div>
     <c:forEach var="image" items="${profile.skillSet[0].imagePaths}">
         <c:if test="${image != null}">
-            <img src="/${image}" width="100" height="100" />
+            <img src="/${image}" class="img" />
         </c:if>
     </c:forEach>
     </div>
@@ -52,7 +54,7 @@
 <form:form action="/skillapp/sendRequest" method="post" modelAttribute="message" class="mt-3">
     <div class="form-outline col-md-12 col-lg-10 col-xl-8">
                 <label class="form-label" for="content">Reply/Feedback:</label>
-        <form:textarea class="form-control" id="content" path="content" rows="5"></form:textarea>
+        <form:textarea class="form-control textarea" id="content" path="content" rows="5"></form:textarea>
 
     </div>
     <input type="hidden" class="form-control" id="receiverUserName" name="receiverUserName" value="${profile.userName}" />
@@ -65,7 +67,7 @@
     <form:form action="/skillapp/admin/removePost" method="post" modelAttribute="message">
     <div class="form-outline col-md-12 col-lg-10 col-xl-8">
     <label for="content">Reply/Feedback:</label>
-    <form:textarea type="text" class="form-control" path="content" cols="50" rows="5" />
+    <form:textarea type="text" class="form-control textarea" path="content" cols="50" rows="5" />
     </div>
     <form:input type="hidden" class="form-control" path="receiverUserName" value="${profile.userName}" />
     <form:input type="hidden" class="form-control" path="skillName" value="${profile.skillSet[0].skill}" />
@@ -90,7 +92,7 @@
     <div class="form-outline col-md-12 col-lg-10 col-xl-8">
         <!-- Textarea for feedback -->
         <label class="form-label" for="feedback">Feedback:</label>
-        <form:textarea id="feedbackTextarea" class="form-control" path="complaint" cols="50" rows="5" /><br/><form:errors path="complaint" cssClass="error"/><br/>
+        <form:textarea id="feedbackTextarea" class="form-control textarea" path="complaint" cols="50" rows="5" /><br/><form:errors path="complaint" cssClass="error"/><br/>
         </div>
         <!-- Button for filing complaint -->
         <form:button type="submit" id="actionButton2"  class="btn btn-primary" >File Complaint</form:button>
@@ -101,7 +103,7 @@
 <button type="button"  class="btn btn-primary"  onclick="window.location.href='/skillapp/home'">Back</button>
 </c:if>
 </div>
-</div></div></div></div></div>
+</div></div></div></div></div></div>
 <script>
     document.getElementById("irrelevantCheckbox").addEventListener("change", function() {
         var feedbackSection = document.getElementById("feedbackSection");

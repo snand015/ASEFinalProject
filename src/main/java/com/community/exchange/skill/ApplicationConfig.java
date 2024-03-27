@@ -3,6 +3,7 @@ package com.community.exchange.skill;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @ComponentScan(basePackages ="com.community.exchange.skill")
+
 public class ApplicationConfig extends WebMvcConfigurationSupport {
 
     @Override
