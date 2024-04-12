@@ -55,7 +55,7 @@
     </div>
 </c:if>
 <c:if test="${not empty searchfailed}">
-    <div class="alert alert-warning" role="alert">
+    <div class="alert alert-warning " role="alert">
         ${searchfailed}
     </div>
 </c:if>

@@ -21,6 +21,11 @@
           <div class="card-body"> -->
             <div class=" align-items-center">
     <h1>User List</h1>
+    <c:if test="${not empty message}">
+    <div class="alert alert-warning" role="alert">
+        ${message}
+    </div>
+</c:if>
     <ul  >
      <c:forEach var="user" items="${userList}">
       <li>  <div class="tile" onclick="window.location.href='/skillapp/admin/UserDetails?userName=${user.userName}'">

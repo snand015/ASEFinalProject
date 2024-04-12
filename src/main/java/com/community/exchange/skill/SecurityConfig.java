@@ -11,7 +11,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	 @Override
 	    public void configure(WebSecurity web) throws Exception {
-	        web.ignoring().antMatchers("/css/**", "/js/**", "/images/**");
+	        web.ignoring().antMatchers("/css/**", "/js/**", "/images/**","/favicon.ico");
+	        
 	    }
 
 
@@ -20,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         https
             
             .authorizeRequests()
-                .antMatchers("/skillapp/**","/user/**").permitAll()
+                .antMatchers("/skillapp/**","/user/**","/error").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()

@@ -313,19 +313,12 @@ body {
     background-size: cover;
     background-position: center;
     position: relative;
-    height: 100%;
-    /*backdrop-filter: blur(8px);*/
+    height: 100vh;
+     backdrop-filter: blur(4px);
+ /*  filter: brightness(1.2)*/
 }
-   .
-   body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background: rgba(255, 255, 255, 0.6); /* White background with 60% opacity */
-        }
+   
+  
   
 .icon{
 	position: absolute;
@@ -367,4 +360,19 @@ body {
 }
 .error {
 	color:#ff4d4d;
+}
+.classic{
+	    background-color: antiquewhite;
+    /* color: black; */
+    /* border: coral; */
+    padding: 10px 20px;
+    text-align: center;
+    /* text-decoration: none; */
+    display: inline-block;
+    font-size: 16px;
+    /* margin: 4px 2px; */
+    cursor: pointer;
+    border-radius: 10px;
+	
+	
 }

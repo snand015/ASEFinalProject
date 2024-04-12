@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class UserRepo {
 
 	
 	public User searchUserByName(String userName) throws UserNotFoundException {
-		String query= "select userName,password,firstName,lastName,email,address from USER where userName=?";
+		String query= "select userName,password,firstName,lastName,email,address from skill.user where userName=?";
 		 List<User> users = null;
 
 		    try {
@@ -79,7 +80,7 @@ public class UserRepo {
     };
 	public void saveMessage(Message msg) {
 		
-		String query="INSERT INTO skill.Message"
+		String query="INSERT INTO skill.message"
 				+ "(Message,"
 				+ "senderName,"
 				+ "receiverName,"
@@ -95,14 +96,14 @@ public class UserRepo {
 
 
 	public List<Message> getMyRequests(String receiverUserName) {
-		String query="select Id,Message, senderName,receiverName,sentTime,skillId from Message where receiverName=? and status not in(\"DEL\")";
+		String query="select Id,Message, senderName,receiverName,sentTime,skillId from skill.message where receiverName=? and status not in(\"DEL\")";
 				  List<Message> myRequests = jdbcTemplate.query(query, messageRowMapper, receiverUserName);
 				// TODO Auto-generated method stub
 				  return myRequests;
 		
 	}
 	public List<Message> getAllRequests(String senderUserName) {
-		String query="select Id,Message,senderName, receiverName,sentTime,skillId from Message where senderName=? and status not in(\"DEL\") ";
+		String query="select Id,Message,senderName, receiverName,sentTime,skillId from skill.message where senderName=? and status not in(\"DEL\") ";
 		  List<Message> myRequests=null;
 		  try {
 				myRequests = jdbcTemplate.query(query, messageRowMapper, senderUserName); 
@@ -146,7 +147,7 @@ public class UserRepo {
 
 
 	public Message getRequestById(Long id) {
-		String query="select Id,Message,senderName, receiverName,sentTime,skillId from Message where id=? ";
+		String query="select Id,Message,senderName, receiverName,sentTime,skillId from skill.message where id=? ";
 Message msg=null;
 		  try {
 			List<Message> msgList=jdbcTemplate.query(query, messageRowMapper, id); 
@@ -165,7 +166,7 @@ Message msg=null;
 
 
 	public void saveCode(PasswordResetRequestEntity request) {
-		String query="INSERT INTO AUTH ("
+		String query="INSERT INTO skill.auth ("
 				+ "userName ,email,verificationCode ) values (?,?,?)";
 		jdbcTemplate.update(query, request.getUserName(),request.getEmail(),request.getVerificationCode());
 				
@@ -175,7 +176,7 @@ Message msg=null;
 
 
 	public String getUserById(String userName) {
-		String query="SELECT  email from user where userName=?";
+		String query="SELECT  email from skill.user where userName=?";
 	return	jdbcTemplate.queryForObject(query,String.class, userName);
 		
 	}
@@ -183,7 +184,7 @@ Message msg=null;
 
 	public List<PasswordResetRequestEntity> validateOTP(String userName) {
 		System.out.println("fetching otp to verify"+userName);
-		String query="select Id,verificationCode,userName,email from AUTH where userName=? order by Id desc LIMIT 1;";
+		String query="select Id,verificationCode,userName,email from skill.auth where userName=? order by Id desc LIMIT 1;";
 	return	jdbcTemplate.query(query,AuthRowMapper, userName);
 	}
 	 private static final RowMapper<PasswordResetRequestEntity> AuthRowMapper = (rs, rowNum) ->{
@@ -202,24 +203,50 @@ Message msg=null;
 
 
 	public List<User> getUser(User user) {
-		// TODO Auto-generated method stub
-		String query= "SELECT firstName,lastName ,userName,email,password,address  "
-				+ "FROM user  where "
-				+" LOWER(userName) LIKE LOWER(CONCAT('%', ?, '%')) "
-				 +" OR LOWER(firstName) LIKE LOWER(CONCAT('%', ?, '%')) "
-				
-+ "OR LOWER(lastName) LIKE LOWER(CONCAT('%', ?, '%')) "
-			+"OR LOWER(email) LIKE LOWER(CONCAT('%', ?, '%')) ";
-				
-	
-return 	jdbcTemplate.query(query, userRowmapper, new Object[]{user.getUserName(),user.getEmail(),user.getFirstName(),user.getLastName()});
-	
+	    StringBuilder queryBuilder = new StringBuilder("SELECT firstName, lastName, userName, email, password, address FROM skill.user");
+	    List<Object> params = new ArrayList<>();
+
+	    if (!user.getUserName().isBlank() || !user.getFirstName().isBlank() || !user.getLastName().isBlank() || !user.getEmail().isBlank()) {
+	        queryBuilder.append(" WHERE ");
+	        boolean addedCondition = false;
+	        if (!user.getUserName().isBlank()) {
+	            queryBuilder.append("LOWER(userName) LIKE LOWER(?)");
+	            params.add("%" + user.getUserName() + "%");
+	            addedCondition = true;
+	        }
+	        if (!user.getFirstName().isBlank()) {
+	            if (addedCondition) {
+	                queryBuilder.append(" OR ");
+	            }
+	            queryBuilder.append("LOWER(firstName) LIKE LOWER(?)");
+	            params.add("%" + user.getFirstName() + "%");
+	            addedCondition = true;
+	        }
+	        if (!user.getLastName().isBlank()) {
+	            if (addedCondition) {
+	                queryBuilder.append(" OR ");
+	            }
+	            queryBuilder.append("LOWER(lastName) LIKE LOWER(?)");
+	            params.add("%" + user.getLastName() + "%");
+	            addedCondition = true;
+	        }
+	        if (!user.getEmail().isBlank()) {
+	            if (addedCondition) {
+	                queryBuilder.append(" OR ");
+	            }
+	            queryBuilder.append("LOWER(email) LIKE LOWER(?)");
+	            params.add("%" + user.getEmail() + "%");
+	        }
+	    }
+
+	    return jdbcTemplate.query(queryBuilder.toString(), params.toArray(), userRowmapper);
 	}
+
 
 
 	public void updateUser(User user) throws UserUpdateException {
 		
-		String query="update user set firstName=? , lastName=? , email=? , password=? , address=? , role=? where userName=?";
+		String query="update skill.user set firstName=? , lastName=? , email=? , password=? , address=? , role=? where userName=?";
 		try {
 		jdbcTemplate.update(query, new Object[] {user.getFirstName(),user.getLastName(),user.getEmail(),
 				user.getPassword(),user.getAddress(), user.getRole(),user.getUserName()});
@@ -232,7 +259,7 @@ return 	jdbcTemplate.query(query, userRowmapper, new Object[]{user.getUserName()
 
 	public Boolean deleteUser(String userName) {
 		// TODO Auto-generated method stub
-		String query=" delete from user where userName=?";
+		String query=" delete from skill.user where userName=?";
 		try {
 		jdbcTemplate.update(query, userName);
 		}catch(Exception e) {

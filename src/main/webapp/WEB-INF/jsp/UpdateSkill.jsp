@@ -27,8 +27,9 @@
     <form:input class="form-control-local" type="text" path="skill" value="${skillToUpdate.skill}" readonly="true" />
     </div>
     <div class="form-group">
-    <label class="form-lable" for="skill">Skill:</label>
-    <form:input class="form-control textarea" type="textArea" path="description" value="${skillToUpdate.description}" required="true" />
+    <label class="form-label" for="skill">Skill:</label>
+    <textarea class="textarea" id="description" name="description" cols="50" rows="5">${skillToUpdate.description}</textarea>
+    
       </div>
         <c:forEach var="image" items="${skillToUpdate.imagePaths}">
          <c:if test="${image!=null}">

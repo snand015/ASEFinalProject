@@ -71,9 +71,12 @@ ${ErrorMessage}</div>
                 <td>${skill.description}</td>
                 <td>
                 <c:if test="${sessionScope.role==null || sessionScope.role!='admin'}">
-                    <a href="<c:url value='skills/update/${skill.id}'/>">Update</a>
+               <div class="classic">     <a href="<c:url value='skills/update/${skill.id}'/>">Update</a></div>
                     </c:if>
+                                   <div class="classic">     
+                                 
                     <a href="<c:url value='skills/delete/${skill.id}'/>">Delete</a>
+                      </div>
                 </td>
             </tr>
         </c:forEach>
