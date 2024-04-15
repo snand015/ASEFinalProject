@@ -26,9 +26,9 @@
             <h3 class="text-center">Error</h3>
           </div>
           <div class="card-body">
-      <span>You are loged out due to unexpected exception.Please find the details ${message} </span>
+      <span>You are logged out due to unexpected exception.Please find the details ${messageText} </span>
             
-        <a href="/skillapp">Back to Login?</a> |
+        
        
     </div>
           </div>

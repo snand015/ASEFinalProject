@@ -21,9 +21,9 @@
           <div class="card-body"> -->
             <div class=" align-items-center">
     <h1>User List</h1>
-    <c:if test="${not empty message}">
+    <c:if test="${not empty messageText}">
     <div class="alert alert-warning" role="alert">
-        ${message}
+        ${messageText}
     </div>
 </c:if>
     <ul  >

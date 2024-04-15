@@ -12,6 +12,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+
+
 @Configuration
 @ComponentScan(basePackages ="com.community.exchange.skill")
 
@@ -29,9 +31,10 @@ public class ApplicationConfig extends WebMvcConfigurationSupport {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix("/WEB-INF/jsp/");
         viewResolver.setSuffix(".jsp");
-        System.out.println(viewResolver.toString());
+        System.out.println("view name is :"+ viewResolver.toString());
         viewResolver.setViewClass(JstlView.class);
         return viewResolver;
     }
+   
     
 }

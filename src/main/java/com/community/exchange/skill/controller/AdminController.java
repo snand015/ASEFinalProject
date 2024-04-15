@@ -138,7 +138,7 @@ public class AdminController {
 	public String findUser(@ModelAttribute("user") User user, Model model) {
 	List<User> profiles=	userService.getUserDetails(user);
 	if(profiles.isEmpty()) {
-		model.addAttribute("message", "No user Found with the details!");
+		model.addAttribute("messageText", "No user Found with the details!");
 	}
 	model.addAttribute("userList",profiles);
 	return "userList";
