@@ -9,14 +9,15 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.community.exchange</groupId>
-	<artifactId>skill</artifactId>
+	<artifactId>skillapp</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>skill</name>
+	<name>skillapp</name>
 	<description>projectASE</description>
 	<properties>
 		<java.version>1.8</java.version>
-		<spring-cloud.version>Greenwich.SR2</spring-cloud.version>
+		 <start-class>com.community.exchange.skill.SkillApplication</start-class>
+		<!--  <spring-cloud.version>Greenwich.SR2</spring-cloud.version>-->
 	</properties>
 
       <dependencies>
@@ -47,7 +48,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
-		<!--	<scope>provided</scope>-->
+		<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -58,29 +59,31 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 		</dependency>
+		
 <dependency>
     <groupId>taglibs</groupId>
     <artifactId>standard</artifactId>
     <version>1.1.2</version>
 </dependency>
-		<dependency>
+		  <dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 		<scope>provided</scope>
 		</dependency>
 	
-<!-- Need this to compile JSP -->
+
 <dependency>
   <groupId>org.eclipse.jdt.core.compiler</groupId>
   <artifactId>ecj</artifactId>
   <version>4.6.1</version>
-</dependency>
+</dependency> 
 		<dependency>
     <groupId>com.google.guava</groupId>
     <artifactId>guava</artifactId>
     <version>27.0-jre</version>
   
 </dependency>
+
 	<dependency>
     <groupId>org.junit.jupiter</groupId>
     <artifactId>junit-jupiter-api</artifactId>
@@ -113,11 +116,23 @@
 		</dependencies>
 		
 	<build>
-	 <finalName>${artifactId}</finalName>
+	 <finalName>${project.artifactId}</finalName>
 		<plugins>
 		<plugin>
-		<groupId>org.springframework.boot</groupId>
+		<groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-war-plugin</artifactId>
+   
+    <configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<webResources>
+						<resource>
+							<directory>src/main/resources</directory>
+						</resource>
+						<resource>
+							<directory>src/main/webapp</directory>
+						</resource>
+					</webResources>
+				</configuration>
     <version>3.4.0</version>
 </plugin>
 			<plugin>
